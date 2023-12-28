@@ -1,0 +1,10 @@
+.input-error-message {
+  font-size: 12px;
+  font-weight: normal;
+  color: red;
+  position: relative;
+  &__scroll {
+    position: absolute;
+    top: "-72px";
+  }
+}

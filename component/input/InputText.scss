@@ -1,0 +1,21 @@
+.input-text {
+  min-height: 50px;
+  width: 100%;
+  padding: 1em;
+  font-size: 14px;
+  line-height: 2;
+  color: black;
+  border: none;
+  outline: none;
+  border-radius: 1em;
+  overflow: auto;
+  &* {
+    font-family: "Roboto";
+  }
+  &::-webkit-input-placeholder {
+    color: gray;
+  }
+  &:focus-visible {
+    outline: none;
+  }
+}
