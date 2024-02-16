@@ -1,6 +1,4 @@
 const AnalyticPage = () => {
-    return (
-        <>Analytic page</>
-    )
-}
-export default AnalyticPage
+  return <>Analytic page</>;
+};
+export default AnalyticPage;
