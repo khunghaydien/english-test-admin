@@ -1,4 +1,4 @@
-'use client'
+
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { IRequestLogin } from '../types'
 import auth from '../service/auth'
@@ -6,7 +6,7 @@ import { ACCESS_TOKEN, EMAIL, ENVIRONMENT } from '@/const/api.const'
 import { RootState } from '..'
 
 export interface AuthState {
-    email: string
+    email: string | null
     isLoginFetching: boolean
     permissions: any
     staff: any
@@ -14,8 +14,7 @@ export interface AuthState {
     user: any
 }
 const initialState: AuthState = {
-    // email: localStorage.getItem(EMAIL) || '',
-    email: '',
+    email: typeof localStorage !== 'undefined' ? localStorage.getItem(EMAIL) : '',
     isLoginFetching: false,
     permissions: {},
     staff: null,
@@ -47,10 +46,10 @@ export const authSlice = createSlice({
                 const { accessToken, email } = payload.data
                 state.isLoginFetching = false
                 state.email = email
-                // localStorage.setItem(EMAIL, email)
-                // if (ENVIRONMENT === 'development') {
-                //     localStorage.setItem(ACCESS_TOKEN, accessToken)
-                // }
+                localStorage.setItem(EMAIL, email)
+                if (ENVIRONMENT === 'development') {
+                    localStorage.setItem(ACCESS_TOKEN, accessToken)
+                }
             }),
             builder.addCase(login.rejected, state => {
                 state.isLoginFetching = false

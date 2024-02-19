@@ -45,7 +45,7 @@ const defaultConfig = (headers: any) => ({
 const getCredentialWithAccessToken = (config: any = {}) => {
     let accessToken: string = ''
     if (ENVIRONMENT === 'development') {
-        // accessToken = localStorage.getItem(ACCESS_TOKEN) || ''
+        accessToken = localStorage.getItem(ACCESS_TOKEN) || ''
     }
     if (!accessToken) return config
     return {
@@ -63,8 +63,8 @@ const configInterceptors = (axiosClient: any) => {
         (res: any) => {
             const status = res?.response?.status
             if (status === HttpStatusCode.Unauthorized) {
-                // localStorage.removeItem(ACCESS_TOKEN)
-                // localStorage.removeItem(EMAIL)
+                localStorage.removeItem(ACCESS_TOKEN)
+                localStorage.removeItem(EMAIL)
                 window.location.href = DEFAULT_ROUTER_WITHOUT_AUTHENTICATED
             } else {
                 return Promise.reject(
