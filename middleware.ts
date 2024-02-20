@@ -3,6 +3,7 @@ import { DEFAULT_ROUTER_WITHOUT_AUTHENTICATED, DEFAULT_ROUTER_WITH_AUTHENTICATED
 import Negotiator from 'negotiator'
 import { i18n } from './language/i18n-config'
 import { match as matchLocale } from '@formatjs/intl-localematcher'
+import { ACCESS_TOKEN } from "./const/api.const";
 
 // config các đầu router k được áp dụng bởi middleware
 export const config = {
@@ -46,7 +47,7 @@ const middleWare = (request: NextRequest) => {
     return NextResponse.redirect(new URL(newPathname, request.url));
   }
 
-  const isAuthenticated = request.cookies.get('access-token')?.value;
+  const isAuthenticated = request.cookies.get(ACCESS_TOKEN);
 
   // Define routes with and without authentication
   const defaultRouter = isAuthenticated ? DEFAULT_ROUTER_WITH_AUTHENTICATED : DEFAULT_ROUTER_WITHOUT_AUTHENTICATED;

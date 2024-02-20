@@ -3,7 +3,7 @@ import { TextareaAutosize } from "@mui/material";
 import ErrorMessage from "../common/ErrorMessage";
 import clsx from "clsx";
 import { cleanObject, useClickOutside } from "@/utils";
-import { CSSProperties, useRef, useState } from "react";
+import { CSSProperties, useEffect, useRef, useState } from "react";
 import {
   CHANGE_TIME_DELAY,
   INPUT_TEXTAREA_MAX_LENGTH,
@@ -22,7 +22,10 @@ type IInputText = {
   maxLength?: number;
   required?: boolean;
   keyName: string;
+  value?: string | number | readonly string[];
   onChange: (e: any, keyName: string) => void;
+  type?: "password" | "text";
+  isPassword?: boolean;
 };
 const InputText = ({
   label,
@@ -36,8 +39,11 @@ const InputText = ({
   style,
   minRows,
   maxRows,
+  value,
   maxLength = INPUT_TEXTAREA_MAX_LENGTH,
   required = true,
+  type,
+  isPassword,
   onChange = () => {},
 }: IInputText) => {
   const textAreaRef = useRef(null);
@@ -45,6 +51,13 @@ const InputText = ({
   const [focus, setFocus] = useState<boolean>(false);
   const [internalValue, setInternalValue] = useState("");
   const customStyle = cleanObject({ ...style, height, resize });
+
+  useEffect(() => {
+    if (value !== internalValue && typeof value === "string") {
+      setInternalValue(value);
+    }
+  }, [value]);
+
   const handleFocus = () => {
     setFocus(true);
   };
@@ -67,23 +80,40 @@ const InputText = ({
           {label} {required && <span className="text-red-500">*</span>}
         </div>
       )}
-      <TextareaAutosize
-        className={clsx(
-          "w-full input-text-area w-100 border rounded-lg outline-none truncate p-1",
-          { "border-red-500": error },
-          { "border-blue-500-500": focus }
-        )}
-        ref={textAreaRef}
-        onFocus={handleFocus}
-        onChange={handleChange}
-        placeholder={placeholder}
-        value={internalValue}
-        disabled={disabled}
-        style={customStyle}
-        minRows={minRows}
-        maxRows={maxRows}
-        maxLength={maxLength}
-      />
+      {!isPassword ? (
+        <TextareaAutosize
+          className={clsx(
+            "w-full input-text-area w-100 border rounded-lg outline-none truncate p-1",
+            { "border-red-500": error },
+            { "border-blue-500-500": focus }
+          )}
+          ref={textAreaRef}
+          onFocus={handleFocus}
+          onChange={handleChange}
+          placeholder={placeholder}
+          value={internalValue}
+          disabled={disabled}
+          style={customStyle}
+          minRows={minRows}
+          maxRows={maxRows}
+          maxLength={maxLength}
+        />
+      ) : (
+        <input
+          className={clsx(
+            "w-full input-text-area w-100 border rounded-lg outline-none truncate p-1",
+            { "border-red-500": error },
+            { "border-blue-500-500": focus }
+          )}
+          ref={textAreaRef}
+          onFocus={handleFocus}
+          value={internalValue}
+          type={type}
+          style={customStyle}
+          placeholder={placeholder}
+          onChange={handleChange}
+        />
+      )}
       {error && <ErrorMessage errorMessage={errorMessage || ""} />}
     </div>
   );

@@ -1,3 +1,5 @@
 {
-  "LB_HOME": "Home"
+  "LB_HOME": "Home",
+  "LB_FORGOT_PASSWORD": "Forgot Password",
+  "LB_LOGIN": "Login"
 }

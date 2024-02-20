@@ -4,7 +4,7 @@ import { IRequestLogin } from '../types'
 import auth from '../service/auth'
 import { ACCESS_TOKEN, EMAIL, ENVIRONMENT } from '@/const/api.const'
 import { RootState } from '..'
-
+import Cookies from 'js-cookie'
 export interface AuthState {
     email: string | null
     isLoginFetching: boolean
@@ -29,7 +29,6 @@ export const login = createAsyncThunk(
             const res = await auth.login(requestBody)
             return res
         } catch (err: any) {
-            console.log(err);
             return rejectWithValue(err)
         }
     }
@@ -47,8 +46,10 @@ export const authSlice = createSlice({
                 state.isLoginFetching = false
                 state.email = email
                 localStorage.setItem(EMAIL, email)
+                Cookies.set(EMAIL, email)
                 if (ENVIRONMENT === 'development') {
                     localStorage.setItem(ACCESS_TOKEN, accessToken)
+                    Cookies.set(ACCESS_TOKEN, accessToken)
                 }
             }),
             builder.addCase(login.rejected, state => {
