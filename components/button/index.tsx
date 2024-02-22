@@ -22,6 +22,8 @@ type ICommonButton = {
   style?: CSSProperties;
   onClick?: () => void;
   type?: "button" | "submit";
+  startIcon?: any;
+  endIcon?: any;
 };
 const CommonButton = ({
   disabled,
@@ -33,18 +35,22 @@ const CommonButton = ({
   className,
   style,
   onClick,
+  startIcon,
+  endIcon,
   type = "button",
 }: ICommonButton) => {
   const customStyle = cleanObject({ ...style, height, width });
   return (
     <Button
       type={type}
-      className={clsx(className, "")}
+      className={clsx(className, "font-bold")}
       variant={variant}
       disabled={disabled}
       color={color}
       onClick={onClick}
       style={customStyle}
+      startIcon={startIcon}
+      endIcon={endIcon}
     >
       {children}
     </Button>
