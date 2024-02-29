@@ -1,4 +1,6 @@
+import ToeicList from "@/modules/exams/toeic/List";
+
 const Toeic = () => {
-  return <>sfdasf adfa dafadsfasdf ád</>;
+  return <ToeicList />;
 };
 export default Toeic;
