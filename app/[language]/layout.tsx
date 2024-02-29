@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import "./globals.css";
 import Provider from "@/store/provider";
-
+import { NextIntlClientProvider, useMessages } from 'next-intl';
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -12,13 +12,18 @@ export const metadata: Metadata = {
 
 export default function RootLayout({
   children,
+  params: { locale }
 }: {
   children: React.ReactNode;
+  params: { locale: string };
 }) {
+  const messages: any = useMessages();
   return (
-    <html lang="en">
+    <html lang={locale}>
       <body className={inter.className}>
-        <Provider>{children}</Provider>
+        <NextIntlClientProvider locale={locale} messages={messages}>
+          <Provider>{children}</Provider>
+        </NextIntlClientProvider>
       </body>
     </html>
   );

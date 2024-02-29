@@ -1,6 +1,5 @@
 "use client";
 import CommonButton from "@/components/button";
-import { Locale } from "@/language/i18n-config";
 import {
   AccountBalance,
   FacebookOutlined,
@@ -10,13 +9,15 @@ import {
 import { Suspense } from "react";
 import Loading from "./loading";
 import MenuLink from "@/components/common/MenuLink";
+import { useMessages } from "next-intl";
 const ModuleLayout = async ({
   params: { language },
   children,
 }: {
-  params: { language: Locale };
+  params: { language: string };
   children: React.ReactNode;
 }) => {
+  const t = useMessages();
   const menuLink = [
     {
       href: "/exams/dashboard",
@@ -47,7 +48,7 @@ const ModuleLayout = async ({
       <div className="w-[260px] bg-blue-100 h-[100vh] font-bold text-[16px] flex flex-col justify-between">
         <div>
           <div className="text-2xl flex items-center justify-center h-[70px]">
-            ET Management
+            {t.LB_ET_MANAGEMENT.toString()}
           </div>
           <div className="h-[1px] bg-slate-500"></div>
         </div>
@@ -74,7 +75,7 @@ const ModuleLayout = async ({
               startIcon={<PermPhoneMsg />}
               className="w-full h-[40px]"
             >
-              Feedback & Support
+              {t.LB_FEEDBACK_SUPPORT.toString()}
             </CommonButton>
           </div>
         </div>

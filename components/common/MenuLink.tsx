@@ -1,5 +1,5 @@
 "use client";
-import { Locale } from "@/language/i18n-config";
+
 import clsx from "clsx";
 import { isEmpty } from "lodash";
 import Link from "next/link";
@@ -11,11 +11,15 @@ type ILink = {
 
 export type IMenuLink = ILink & {
   subLink?: ILink[];
-  language: Locale;
+  language?: string;
 };
 
 const MenuLink = ({ href, label, subLink, language }: IMenuLink) => {
   const pathname = usePathname();
+  const checkLink = (href: string) => {
+    if (language === "en") return href === pathname;
+    else return `/${language}${href}` === pathname;
+  };
   return (
     <>
       <Link
@@ -39,9 +43,7 @@ const MenuLink = ({ href, label, subLink, language }: IMenuLink) => {
                 href={href}
                 className={clsx(
                   "w-full h-[50px] flex items-center p-2 rounded-xl",
-                  `/${language}${href}` === pathname
-                    ? "text-white bg-blue-900"
-                    : "text-blue-500"
+                  checkLink(href) ? "text-white bg-blue-900" : "text-blue-500"
                 )}
               >
                 {label}
