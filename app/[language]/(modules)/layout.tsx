@@ -6,8 +6,6 @@ import {
   LocationSearching,
   PermPhoneMsg,
 } from "@mui/icons-material";
-import { Suspense } from "react";
-import Loading from "./loading";
 import MenuLink from "@/components/common/MenuLink";
 import { useMessages } from "next-intl";
 const ModuleLayout = async ({
@@ -83,7 +81,7 @@ const ModuleLayout = async ({
       <div className="w-[calc(100%-264px)] min-h-[100vh] h-full flex flex-col gap-1">
         <div className="w-full bg-blue-100 h-[70px]">{}</div>
         <div className="bg-slate-100 h-full min-h-[calc(100vh-74px)]">
-          <Suspense fallback={<Loading />}>{children}</Suspense>
+          {children}
         </div>
       </div>
     </div>

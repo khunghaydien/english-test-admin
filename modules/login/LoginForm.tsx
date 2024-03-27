@@ -70,7 +70,7 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
       />
       <InputText
         isPassword
-        type={loginFormik.values.isShowPassword ? "password" : "text"}
+        type={loginFormik.values.isShowPassword ? "text" : "password"}
         keyName="password"
         error={!!loginFormik.errors.password && !!loginFormik.touched.password}
         errorMessage={loginFormik.errors.password}

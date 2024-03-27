@@ -18,7 +18,10 @@ const InputCheckbox = ({
     !!onClick && !disabled && onClick();
   };
   return (
-    <div className="flex gap-1 items-center" onClick={handleClick}>
+    <div
+      className="flex gap-1 items-center cursor-pointer"
+      onClick={handleClick}
+    >
       <Checkbox
         disabled={disabled}
         checked={checked}
