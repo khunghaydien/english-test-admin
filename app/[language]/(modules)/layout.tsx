@@ -2,19 +2,45 @@
 import CommonButton from "@/components/button";
 import {
   AccountBalance,
+  Delete,
+  Edit,
   FacebookOutlined,
   LocationSearching,
   PermPhoneMsg,
 } from "@mui/icons-material";
 import MenuLink from "@/components/common/MenuLink";
 import { useMessages } from "next-intl";
-const ModuleLayout = async ({
+import InputDropdown, { OptionItem } from "@/components/input/InputDropdown";
+import { useRouter, usePathname } from "@/navigation";
+import Cookies from "js-cookie";
+import { NEXT_LOCALE } from "@/const/app.const";
+const languageOptions: OptionItem[] = [
+  {
+    id: "en",
+    label: "en",
+    value: "en",
+    startIcon: <Edit />,
+  },
+  {
+    id: "vn",
+    label: "vn",
+    value: "vn",
+    startIcon: <Delete />,
+  },
+];
+const ModuleLayout = ({
   params: { language },
   children,
 }: {
   params: { language: string };
   children: React.ReactNode;
 }) => {
+  const router = useRouter();
+  const pathname = usePathname();
+  const handleChangeLanguage = (value: string) => {
+    router.push(pathname, { locale: value });
+    Cookies.set(NEXT_LOCALE, value);
+  };
   const t = useMessages();
   const menuLink = [
     {
@@ -79,7 +105,13 @@ const ModuleLayout = async ({
         </div>
       </div>
       <div className="w-[calc(100%-264px)] min-h-[100vh] h-full flex flex-col gap-1">
-        <div className="w-full bg-blue-100 h-[70px]">{}</div>
+        <div className="w-full bg-blue-100 h-[70px]">
+          <InputDropdown
+            options={languageOptions}
+            onChange={handleChangeLanguage}
+            value={Cookies.get("NEXT_LOCALE") || ""}
+          />
+        </div>
         <div className="bg-slate-100 h-full min-h-[calc(100vh-74px)]">
           {children}
         </div>

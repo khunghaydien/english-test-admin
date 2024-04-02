@@ -19,7 +19,7 @@ const InputCheckbox = ({
   };
   return (
     <div
-      className="flex gap-1 items-center cursor-pointer"
+      className="input-checkbox flex gap-1 items-center cursor-pointer"
       onClick={handleClick}
     >
       <Checkbox

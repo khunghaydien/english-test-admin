@@ -1,6 +1,6 @@
 "use client";
 import { TextareaAutosize } from "@mui/material";
-import ErrorMessage from "../common/ErrorMessage";
+import ErrorMessage from "./common/ErrorMessage";
 import clsx from "clsx";
 import { cleanObject, useClickOutside } from "@/utils";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -8,6 +8,7 @@ import {
   CHANGE_TIME_DELAY,
   INPUT_TEXTAREA_MAX_LENGTH,
 } from "@/const/app.const";
+import CommonLabel from "./common/InputLabel";
 type IInputText = {
   label?: string;
   errorMessage?: string;
@@ -75,11 +76,7 @@ const InputText = ({
   };
   return (
     <div className="input">
-      {label && (
-        <div className="input-label">
-          {label} {required && <span className="text-red-500">*</span>}
-        </div>
-      )}
+      {!!label && <CommonLabel label={label} required={required} />}
       {!isPassword ? (
         <TextareaAutosize
           className={clsx(
