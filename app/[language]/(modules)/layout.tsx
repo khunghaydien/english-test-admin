@@ -1,33 +1,14 @@
 "use client";
 import CommonButton from "@/components/button";
 import {
-  AccountBalance,
-  Delete,
-  Edit,
-  FacebookOutlined,
-  LocationSearching,
   PermPhoneMsg,
 } from "@mui/icons-material";
 import MenuLink from "@/components/common/MenuLink";
 import { useMessages } from "next-intl";
-import InputDropdown, { OptionItem } from "@/components/input/InputDropdown";
-import { useRouter, usePathname } from "@/navigation";
-import Cookies from "js-cookie";
-import { NEXT_LOCALE } from "@/const/app.const";
-const languageOptions: OptionItem[] = [
-  {
-    id: "en",
-    label: "en",
-    value: "en",
-    startIcon: <Edit />,
-  },
-  {
-    id: "vn",
-    label: "vn",
-    value: "vn",
-    startIcon: <Delete />,
-  },
-];
+import ThemeSwitch from "@/components/common/ThemeSwitch";
+import ChangeLanguage from "@/components/common/ChangeLanguage";
+import NotificationComponent from "@/components/common/notification";
+import Profile from "@/components/common/profile";
 const ModuleLayout = ({
   params: { language },
   children,
@@ -35,12 +16,6 @@ const ModuleLayout = ({
   params: { language: string };
   children: React.ReactNode;
 }) => {
-  const router = useRouter();
-  const pathname = usePathname();
-  const handleChangeLanguage = (value: string) => {
-    router.push(pathname, { locale: value });
-    Cookies.set(NEXT_LOCALE, value);
-  };
   const t = useMessages();
   const menuLink = [
     {
@@ -62,19 +37,14 @@ const ModuleLayout = ({
       label: "Analytics",
     },
   ];
-  const iconList = [
-    <FacebookOutlined />,
-    <LocationSearching />,
-    <AccountBalance />,
-  ];
   return (
-    <div className="flex gap-1 w-full">
-      <div className="w-[260px] bg-blue-100 h-[100vh] font-bold text-[16px] flex flex-col justify-between">
+    <div className="flex w-full">
+      <div className="w-[260px] h-[100vh] font-bold text-[16px] flex flex-col justify-between">
         <div>
-          <div className="text-2xl flex items-center justify-center h-[70px]">
+          <div className="text-2xl flex items-center justify-center p-4 h-[74px]">
             {t.LB_ET_MANAGEMENT.toString()}
           </div>
-          <div className="h-[1px] bg-slate-500"></div>
+          <div className="h-[1px]"></div>
         </div>
         <div className="p-4 flex flex-col gap-2 h-full">
           {menuLink.map(({ href, label, subLink }) => (
@@ -88,12 +58,6 @@ const ModuleLayout = ({
           ))}
         </div>
         <div className="flex flex-col gap-2">
-          <div className="flex items-center justify-center gap-2 p-4 h-[40px]">
-            {iconList.map((item, index) => (
-              <CommonButton key={index}>{item}</CommonButton>
-            ))}
-          </div>
-          <div className="h-[1px] bg-slate-500"></div>
           <div className="pb-2">
             <CommonButton
               startIcon={<PermPhoneMsg />}
@@ -104,15 +68,19 @@ const ModuleLayout = ({
           </div>
         </div>
       </div>
+      <div className="w-[1px] bg-green-900"></div>
       <div className="w-[calc(100%-264px)] min-h-[100vh] h-full flex flex-col gap-1">
-        <div className="w-full bg-blue-100 h-[70px]">
-          <InputDropdown
-            options={languageOptions}
-            onChange={handleChangeLanguage}
-            value={Cookies.get("NEXT_LOCALE") || ""}
-          />
+        <div className="w-full p-4 flex gap-10 items-center justify-end">
+          <div className="flex gap-5 items-end">
+            <ChangeLanguage />
+            <ThemeSwitch />
+            <NotificationComponent />
+          </div>
+          <div className="w-[1px] bg-green-900 h-10"></div>
+          <Profile />
         </div>
-        <div className="bg-slate-100 h-full min-h-[calc(100vh-74px)]">
+        <div className="w-full bg-green-900 h-[1px]"></div>
+        <div className="h-full min-h-[calc(100vh-81px)] p-4">
           {children}
         </div>
       </div>

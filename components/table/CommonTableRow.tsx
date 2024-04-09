@@ -22,7 +22,7 @@ const CommonTableRow = ({
   columns,
 }: ICommonTableRow) => {
   return (
-    <TableRow className={clsx("", { "bg-red-200": row.error })}>
+    <TableRow className={clsx("", { "bg-red-100": row.error })}>
       {isUseCheckbox && (
         <TableCell>
           <Checkbox

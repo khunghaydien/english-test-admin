@@ -13,7 +13,7 @@ const LoginLayout = ({ children }: ILoginLayout) => {
       )}
     >
       <div className="mr-[15%]">
-        <div className="w-[450px] min-h-[350px] bg-white rounded-lg p-4">
+        <div className="w-[450px] min-h-[350px] rounded-lg p-4">
           {children}
         </div>
       </div>

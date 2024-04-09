@@ -25,7 +25,7 @@ const MenuLink = ({ href, label, subLink, language }: IMenuLink) => {
       <Link
         href={href}
         className={clsx(
-          "w-full h-[50px] flex items-center p-2 rounded-xl",
+          "w-full h-[50px] flex items-center p-2 rounded-xl hover:bg-blue-100 hover:text-blue-500",
           pathname?.split("/").includes(href.split("/")[1])
             ? "text-white bg-blue-900"
             : "text-blue-500"
@@ -36,13 +36,13 @@ const MenuLink = ({ href, label, subLink, language }: IMenuLink) => {
       {pathname?.split("/").includes(href.split("/")[1]) &&
         !isEmpty(subLink) &&
         subLink && (
-          <div className="ml-[50px] flex-col gap-2">
+          <div className="ml-10 flex-col gap-2">
             {subLink.map(({ href, label }: ILink) => (
               <Link
                 key={href}
                 href={href}
                 className={clsx(
-                  "w-full h-[50px] flex items-center p-2 rounded-xl",
+                  "w-full h-[50px] flex items-center p-2 rounded-xl hover:bg-blue-100 hover:text-blue-500",
                   checkLink(href) ? "text-white bg-blue-900" : "text-blue-500"
                 )}
               >
