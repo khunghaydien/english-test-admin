@@ -43,9 +43,9 @@ const InputDropdown = ({
       keyName || ""
     );
   };
-  const handleBlur = () => { };
-  const handleClose = () => { };
-  const handleOpen = () => { };
+  const handleBlur = () => {};
+  const handleClose = () => {};
+  const handleOpen = () => {};
   return (
     <div className="input-dropdown">
       {!!label && <CommonLabel label={label} required={required} />}

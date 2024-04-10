@@ -1,8 +1,6 @@
 "use client";
 import CommonButton from "@/components/button";
-import {
-  PermPhoneMsg,
-} from "@mui/icons-material";
+import { PermPhoneMsg } from "@mui/icons-material";
 import MenuLink from "@/components/common/MenuLink";
 import { useMessages } from "next-intl";
 import ThemeSwitch from "@/components/common/ThemeSwitch";
@@ -35,6 +33,10 @@ const ModuleLayout = ({
     {
       href: "/analytics/dashboard",
       label: "Analytics",
+    },
+    {
+      href: "/training-exercise",
+      label: "Traning Exercise",
     },
   ];
   return (
@@ -80,9 +82,7 @@ const ModuleLayout = ({
           <Profile />
         </div>
         <div className="w-full bg-green-900 h-[1px]"></div>
-        <div className="h-full min-h-[calc(100vh-81px)] p-4">
-          {children}
-        </div>
+        <div className="h-full min-h-[calc(100vh-81px)] p-4">{children}</div>
       </div>
     </div>
   );

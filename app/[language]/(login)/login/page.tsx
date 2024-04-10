@@ -1,5 +1,5 @@
 "use client";
-import LoginForm from "@/modules/login/LoginForm";
+import LoginForm from "@/app/[language]/(login)/_component/LoginForm";
 import { useRouter } from "next/navigation";
 import { useMessages } from "next-intl";
 const LoginPage = () => {

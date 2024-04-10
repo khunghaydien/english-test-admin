@@ -1,5 +1,5 @@
 "use client";
-import ForgotPasswordForm from "@/modules/login/ForgotPasswordForm";
+import ForgotPasswordForm from "@/app/[language]/(login)/_component/ForgotPasswordForm";
 import { useRouter } from "next/navigation";
 import { useMessages } from "next-intl";
 const LoginPage = () => {
