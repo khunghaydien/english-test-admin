@@ -8,7 +8,7 @@ import {
   CHANGE_TIME_DELAY,
   INPUT_TEXTAREA_MAX_LENGTH,
 } from "@/const/app.const";
-import CommonLabel from "./common/InputLabel";
+import CommonLabel from "./common/Label";
 type IInputText = {
   label?: string;
   errorMessage?: string;

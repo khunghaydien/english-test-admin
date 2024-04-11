@@ -3,5 +3,6 @@
     "LB_FEEDBACK_SUPPORT": "Feedback & Support",
     "LB_FORGOT_PASSWORD": "Forgot Password",
     "LB_LOGIN": "Login",
+    "LB_TRAINING_EXERCISE": "Training Exercise",
     "MSG_FORGOT_PASSWORD": "Enter your user account verified email address and we will send you a password reset link."
 }

@@ -23,6 +23,7 @@ const InputCheckbox = ({
       onClick={handleClick}
     >
       <Checkbox
+        className="text-blue-900"
         disabled={disabled}
         checked={checked}
         indeterminate={indeterminate}

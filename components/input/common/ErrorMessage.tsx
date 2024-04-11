@@ -2,8 +2,6 @@ type IErrorMessage = {
   errorMessage: string;
 };
 const ErrorMessage = ({ errorMessage }: IErrorMessage) => {
-  return (
-    <div className="input__error text-red-500 text-[12px]">{errorMessage}</div>
-  );
+  return <div className="text-red-500 text-xs">{errorMessage}</div>;
 };
 export default ErrorMessage;
