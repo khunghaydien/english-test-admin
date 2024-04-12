@@ -1,10 +1,15 @@
-import { memo, useMemo } from "react";
+import { memo, useCallback, useEffect, useRef, useState } from "react";
 import CommonLabel from "./common/Label";
 import { isEmpty } from "lodash";
 import clsx from "clsx";
-import { getTextEllipsis } from "@/utils";
-import { makeStyles } from "@mui/styles";
-import { MenuItem, Select, SelectChangeEvent } from "@mui/material";
+import { getTextEllipsis, useClickOutside } from "@/utils";
+import CommonInput from "./CommonInput";
+import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
+import { useSpring, animated } from "@react-spring/web";
+import ErrorMessage from "./common/ErrorMessage";
+import CloseIcon from "@mui/icons-material/Close";
+import _ from "lodash";
+import { INPUT_TIME_DELAY } from "@/const/app.const";
 export type OptionItem = {
   id: string;
   value: string;
@@ -23,6 +28,8 @@ type ICommonSelect = {
   value: string;
   error: boolean;
   errorMessage: string;
+  placeholder: string;
+  disabled: boolean;
 };
 const CommonSelect = ({
   label,
@@ -34,52 +41,97 @@ const CommonSelect = ({
   value,
   error,
   errorMessage,
+  placeholder,
+  disabled,
 }: Partial<ICommonSelect>) => {
-  const classes = useStyles();
-  const handleChange = (e: SelectChangeEvent<string>) => {
-    const value = e.target.value as string;
-    onChange(value, keyName);
+  const [selected, setSelected] = useState<Partial<OptionItem>>({});
+  const [isOpen, setIsOpen] = useState(false);
+  const [currentOptions, setCurrentOptions] =
+    useState<Partial<OptionItem>[]>(options);
+  const selectRef = useRef(null);
+
+  useEffect(() => {
+    if (!isEmpty(options)) {
+      const val = options.find((item) => item.id === value);
+      if (val) setSelected(val);
+    }
+  }, [value]);
+
+  const handleSelected = (option: Partial<OptionItem>) => {
+    setIsOpen(false);
+    setSelected(option);
+    if (option.id) onChange(option.id, keyName);
   };
-  const option = useMemo(() => {
-    const val = options.find(
-      (option: Partial<OptionItem>) => option.value == value
-    );
-    return val?.value?.toString() || "";
-  }, [options, value]);
+
+  useClickOutside(selectRef, () => {
+    setIsOpen(false);
+  });
+
+  const slideAnimation = useSpring({
+    transform: isOpen ? "translate3D(0,0,0)" : "translate3D(0,-40px,0)",
+    opacity: isOpen ? 1 : 0,
+  });
+
+  const clearValue = () => {
+    setSelected({});
+    onChange("", keyName);
+  };
+
   return (
     <div className="common-select">
       {!!label && (
         <CommonLabel label={label} keyName={keyName} required={required} />
       )}
-      <Select
-        id="countries"
-        className="border rounded-lg block w-full outline-none"
-        onChange={handleChange}
-        value={option}
-      >
-        {!isEmpty(options) ? (
-          options.map((option: Partial<OptionItem>) => (
-            <MenuItem
-              disabled={option.disabled}
-              key={option.id}
-              value={option.id}
-              className={clsx("p-2", {
-                hiden: !!option.id && ignoreIds.includes(option.id),
-              })}
-            >
-              <div title={option.label}>
-                {getTextEllipsis(option.label as string)}
-              </div>
-            </MenuItem>
-          ))
-        ) : (
-          <MenuItem selected>
-            <div>{"No Data"}</div>
-          </MenuItem>
+      <div ref={selectRef} className="relative">
+        <CommonInput
+          disabled={disabled}
+          value={selected.label}
+          onClick={() => setIsOpen(true)}
+          endIcon={<ArrowDropDownIcon />}
+          placeholder={placeholder}
+          error={error}
+          className="cursor-pointer"
+        />
+        {selected.id && (
+          <div
+            className="flex items-center justify-center cursor-pointer absolute w-[32px] h-[32px] top-[5.5px] end-5 rounded-full hover:bg-blue-200 hover:text-black"
+            onClick={clearValue}
+          >
+            <CloseIcon className="text-[13px]" />
+          </div>
         )}
-      </Select>
+        <animated.div style={slideAnimation}>
+          {isOpen && (
+            <div className="absolute z-10 border rounded-lg mt-1 w-full shadow-md dark:bg-[#3b3b3b] bg-white mh-[415px] overflow-y-scroll">
+              {!isEmpty(currentOptions) ? (
+                currentOptions.map((option: Partial<OptionItem>) => (
+                  <div
+                    key={option.id}
+                    className={clsx(
+                      "py-2 px-4 cursor-pointer first:rounded-tl-lg first:rounded-tr-lg last:rounded-bl-lg last:rounded-br-lg",
+                      {
+                        hidden: !!option.id && ignoreIds.includes(option.id),
+                        "bg-blue-500 text-white": selected.id === option.id,
+                        "hover:bg-blue-100 hover:text-black":
+                          selected.id !== option.id,
+                      }
+                    )}
+                    onClick={() => handleSelected(option)}
+                  >
+                    <div title={option.label}>
+                      {getTextEllipsis(option.label as string)}
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="py-2 px-4">{"No Data"}</div>
+              )}
+            </div>
+          )}
+        </animated.div>
+      </div>
+      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
     </div>
   );
 };
-const useStyles = makeStyles(() => ({}));
 export default memo(CommonSelect);

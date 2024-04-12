@@ -5,9 +5,9 @@ import trainingExerciseValidate from "../validate";
 import CommonInput from "@/components/input/CommonInput";
 import { useMessages } from "next-intl";
 import { useCallback } from "react";
-import CommonButton from "@/components/button";
 import EmailIcon from "@mui/icons-material/Email";
 import CommonSelect from "@/components/input/CommonSelect";
+import GroupItem from "@/components/input/common/GroupItem";
 const optionsTrainingType = [
   {
     id: "1",
@@ -18,6 +18,32 @@ const optionsTrainingType = [
     id: "2",
     label: "Vacabulary",
     value: "2",
+  },
+  {
+    id: "3",
+    label: "Listening",
+    value: "3",
+  },
+  {
+    id: "4",
+    label: "Reading",
+    value: "4",
+  },
+  {
+    id: "5",
+    label: "Use Of English",
+    value: "5",
+  },
+  {
+    id: "6",
+    label: "Writing",
+    value: "6",
+  },
+
+  {
+    id: "7",
+    label: "Exam",
+    value: "7",
   },
 ];
 const TrainingExerciseDetail = () => {
@@ -39,30 +65,34 @@ const TrainingExerciseDetail = () => {
   return (
     <div className="training-exercise-detail">
       <form onSubmit={formik.handleSubmit}>
-        <CommonInput
-          placeholder={t.LB_TRAINING_EXERCISE.toString()}
-          label={t.LB_TRAINING_EXERCISE.toString()}
-          keyName="trainingExercise"
-          value={values.trainingExercise}
-          onChange={onChangeValue}
-          error={!!errors.trainingExercise && !!touched.trainingExercise}
-          errorMessage={errors.trainingExercise}
-          required
-          startIcon={<EmailIcon />}
-        />
-        <CommonSelect
-          options={optionsTrainingType}
-          value={values.trainingType}
-          keyName="trainingType"
-          label={"Traing Type"}
-          error={!!errors.trainingType && !!touched.trainingType}
-          errorMessage={errors.trainingType}
-          onChange={onChangeValue}
-          required
-        />
-        <CommonButton type="submit" onClick={formik.handleSubmit}>
+        <GroupItem top={24} gap={24}>
+          <CommonInput
+            placeholder={t.LB_TRAINING_EXERCISE.toString()}
+            label={t.LB_TRAINING_EXERCISE.toString()}
+            keyName="trainingExercise"
+            value={values.trainingExercise}
+            onChange={onChangeValue}
+            error={!!errors.trainingExercise && !!touched.trainingExercise}
+            errorMessage={errors.trainingExercise}
+            required
+            startIcon={<EmailIcon />}
+          />
+          <CommonSelect
+            options={optionsTrainingType}
+            value={values.trainingType}
+            keyName="trainingType"
+            label={"Traing Type"}
+            error={!!errors.trainingType && !!touched.trainingType}
+            errorMessage={errors.trainingType}
+            placeholder="Training Type"
+            onChange={onChangeValue}
+            required
+          />
+        </GroupItem>
+
+        <button type="submit" onClick={() => formik.handleSubmit}>
           submit
-        </CommonButton>
+        </button>
       </form>
     </div>
   );
