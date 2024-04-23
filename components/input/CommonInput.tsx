@@ -1,8 +1,8 @@
 import { useClickOutside } from "@/utils";
 import clsx from "clsx";
 import { ChangeEvent, useRef, useState } from "react";
-import ErrorMessage from "./common/ErrorMessage";
-import Label from "./common/Label";
+import ErrorMessage from "../common/ErrorMessage";
+import Label from "../common/CommonLabel";
 
 type ICommonInput = {
   keyName: string;
@@ -19,6 +19,7 @@ type ICommonInput = {
   required: boolean;
   onClick: () => void;
   className: string;
+  autoComplete: "on" | "off";
 };
 const CommonInput = ({
   keyName,
@@ -35,6 +36,7 @@ const CommonInput = ({
   endIcon,
   onClick = () => {},
   className,
+  autoComplete = "off",
 }: Partial<ICommonInput>) => {
   const inputRef = useRef(null);
   const [focus, setFocus] = useState(false);
@@ -58,6 +60,7 @@ const CommonInput = ({
           </div>
         )}
         <input
+          autoComplete={autoComplete}
           ref={inputRef}
           type={type}
           id={keyName}
@@ -87,7 +90,7 @@ const CommonInput = ({
           </div>
         )}
       </div>
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage && error && <ErrorMessage errorMessage={errorMessage} />}
     </div>
   );
 };

@@ -1,6 +1,6 @@
 "use client";
 import { TextareaAutosize } from "@mui/material";
-import ErrorMessage from "./common/ErrorMessage";
+import ErrorMessage from "../common/ErrorMessage";
 import clsx from "clsx";
 import { cleanObject, useClickOutside } from "@/utils";
 import { CSSProperties, useEffect, useRef, useState } from "react";
@@ -8,7 +8,7 @@ import {
   CHANGE_TIME_DELAY,
   INPUT_TEXTAREA_MAX_LENGTH,
 } from "@/const/app.const";
-import CommonLabel from "./common/Label";
+import CommonLabel from "../common/CommonLabel";
 type IInputText = {
   label?: string;
   errorMessage?: string;

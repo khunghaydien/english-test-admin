@@ -49,13 +49,10 @@ const ForgotPasswordForm = ({ onSendEmail, onLogin }: IForgotPasswordForm) => {
         onChange={handleChange}
       />
       <CommonButton
-        height={48}
-        width={"100%"}
         type="submit"
         onClick={forgotPasswordForm.handleSubmit}
-      >
-        Send Email
-      </CommonButton>
+        label={"Send Email"}
+      />
       <div className="text-center">
         <span> Or </span>
         <span

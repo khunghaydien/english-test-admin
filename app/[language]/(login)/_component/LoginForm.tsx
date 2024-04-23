@@ -90,13 +90,10 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
         </div>
       </div>
       <CommonButton
-        height={48}
-        width={"100%"}
         type="submit"
         onClick={loginFormik.handleSubmit}
-      >
-        Login
-      </CommonButton>
+        label={"Login"}
+      />
     </form>
   );
 };

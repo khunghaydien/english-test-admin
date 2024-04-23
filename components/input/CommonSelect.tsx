@@ -1,15 +1,14 @@
-import { memo, useCallback, useEffect, useRef, useState } from "react";
-import CommonLabel from "./common/Label";
+import { memo, useEffect, useRef, useState } from "react";
+import CommonLabel from "../common/CommonLabel";
 import { isEmpty } from "lodash";
 import clsx from "clsx";
 import { getTextEllipsis, useClickOutside } from "@/utils";
 import CommonInput from "./CommonInput";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useSpring, animated } from "@react-spring/web";
-import ErrorMessage from "./common/ErrorMessage";
+import ErrorMessage from "../common/ErrorMessage";
 import CloseIcon from "@mui/icons-material/Close";
 import _ from "lodash";
-import { INPUT_TIME_DELAY } from "@/const/app.const";
 export type OptionItem = {
   id: string;
   value: string;
@@ -94,7 +93,7 @@ const CommonSelect = ({
         />
         {selected.id && (
           <div
-            className="flex items-center justify-center cursor-pointer absolute w-[32px] h-[32px] top-[5.5px] end-5 rounded-full hover:bg-blue-200 hover:text-black"
+            className="flex items-center justify-center cursor-pointer absolute w-[32px] h-[32px] top-[5.5px] end-5 rounded-full hover:bg-default-200 hover:text-black"
             onClick={clearValue}
           >
             <CloseIcon className="text-[13px]" />
@@ -111,8 +110,8 @@ const CommonSelect = ({
                       "py-2 px-4 cursor-pointer first:rounded-tl-lg first:rounded-tr-lg last:rounded-bl-lg last:rounded-br-lg",
                       {
                         hidden: !!option.id && ignoreIds.includes(option.id),
-                        "bg-blue-500 text-white": selected.id === option.id,
-                        "hover:bg-blue-100 hover:text-black":
+                        "bg-default-500 text-white": selected.id === option.id,
+                        "hover:bg-default-100 hover:text-black":
                           selected.id !== option.id,
                       }
                     )}
@@ -130,7 +129,7 @@ const CommonSelect = ({
           )}
         </animated.div>
       </div>
-      {errorMessage && <ErrorMessage errorMessage={errorMessage} />}
+      {errorMessage && error && <ErrorMessage errorMessage={errorMessage} />}
     </div>
   );
 };

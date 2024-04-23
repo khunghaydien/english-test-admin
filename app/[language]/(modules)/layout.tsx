@@ -64,13 +64,12 @@ const ModuleLayout = ({
             <CommonButton
               startIcon={<PermPhoneMsg />}
               className="w-full h-[40px]"
-            >
-              {t.LB_FEEDBACK_SUPPORT.toString()}
-            </CommonButton>
+              label={t.LB_FEEDBACK_SUPPORT.toString()}
+            />
           </div>
         </div>
       </div>
-      <div className="w-[1px] bg-green-900"></div>
+      <div className="w-[1px] bg-success-900"></div>
       <div className="w-[calc(100%-264px)] min-h-[100vh] h-full flex flex-col gap-1">
         <div className="w-full p-4 flex gap-10 items-center justify-end">
           <div className="flex gap-5 items-end">
@@ -78,10 +77,10 @@ const ModuleLayout = ({
             <ThemeSwitch />
             <NotificationComponent />
           </div>
-          <div className="w-[1px] bg-green-900 h-10"></div>
+          <div className="w-[1px] bg-success-900 h-10"></div>
           <Profile />
         </div>
-        <div className="w-full bg-green-900 h-[1px]"></div>
+        <div className="w-full bg-success-900 h-[1px]"></div>
         <div className="h-full min-h-[calc(100vh-81px)] p-4">{children}</div>
       </div>
     </div>

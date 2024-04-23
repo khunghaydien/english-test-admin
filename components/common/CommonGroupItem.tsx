@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import React from "react";
 import { ReactNode } from "react";
 
 type IGroupItem = {
@@ -9,13 +10,18 @@ type IGroupItem = {
 const GroupItem = ({ children, gap, top }: Partial<IGroupItem>) => {
   return (
     <div
-      className={clsx("group-item flex items-center w-full gap-[20px]", {
+      className={clsx("group-item flex items-start w-full gap-[20px]", {
         [`gap-[${gap}px]`]: gap,
         [`mt-[${top}px]`]: top,
       })}
     >
-      {children}
+      {React.Children.map(children, (child, index) => (
+        <div key={index} className="flex-1">
+          {child}
+        </div>
+      ))}
     </div>
   );
 };
+
 export default GroupItem;

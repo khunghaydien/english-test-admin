@@ -1,49 +1,57 @@
 "use client";
 
 import { useFormik } from "formik";
-import trainingExerciseValidate from "../validate";
+import trainingExerciseValidate from "../_validate";
 import CommonInput from "@/components/input/CommonInput";
 import { useMessages } from "next-intl";
 import { useCallback } from "react";
-import EmailIcon from "@mui/icons-material/Email";
 import CommonSelect from "@/components/input/CommonSelect";
-import GroupItem from "@/components/input/common/GroupItem";
+import GroupItem from "@/components/common/CommonGroupItem";
+import {
+  TRAINING_TYPE_EXAM,
+  TRAINING_TYPE_GRAMMAR,
+  TRAINING_TYPE_LISTENING,
+  TRAINING_TYPE_READING,
+  TRAINING_TYPE_USE_OF_ENGLISH,
+  TRAINING_TYPE_VACABULARY,
+  TRAINING_TYPE_WRITING,
+} from "../_const";
+import CommonButton from "@/components/button";
 const optionsTrainingType = [
   {
-    id: "1",
+    id: TRAINING_TYPE_GRAMMAR,
     label: "Grammar",
-    value: "1",
+    value: TRAINING_TYPE_GRAMMAR,
   },
   {
-    id: "2",
+    id: TRAINING_TYPE_VACABULARY,
     label: "Vacabulary",
-    value: "2",
+    value: TRAINING_TYPE_VACABULARY,
   },
   {
-    id: "3",
+    id: TRAINING_TYPE_LISTENING,
     label: "Listening",
-    value: "3",
+    value: TRAINING_TYPE_LISTENING,
   },
   {
-    id: "4",
+    id: TRAINING_TYPE_READING,
     label: "Reading",
-    value: "4",
+    value: TRAINING_TYPE_READING,
   },
   {
-    id: "5",
+    id: TRAINING_TYPE_USE_OF_ENGLISH,
     label: "Use Of English",
-    value: "5",
+    value: TRAINING_TYPE_USE_OF_ENGLISH,
   },
   {
-    id: "6",
+    id: TRAINING_TYPE_WRITING,
     label: "Writing",
-    value: "6",
+    value: TRAINING_TYPE_WRITING,
   },
-
   {
-    id: "7",
+    id: TRAINING_TYPE_EXAM,
     label: "Exam",
-    value: "7",
+    value: TRAINING_TYPE_EXAM,
   },
 ];
 const TrainingExerciseDetail = () => {
@@ -75,7 +83,6 @@ const TrainingExerciseDetail = () => {
             error={!!errors.trainingExercise && !!touched.trainingExercise}
             errorMessage={errors.trainingExercise}
             required
-            startIcon={<EmailIcon />}
           />
           <CommonSelect
             options={optionsTrainingType}
@@ -89,10 +96,11 @@ const TrainingExerciseDetail = () => {
             required
           />
         </GroupItem>
-
-        <button type="submit" onClick={() => formik.handleSubmit}>
-          submit
-        </button>
+        <CommonButton
+          type="submit"
+          onClick={() => formik.handleSubmit}
+          label={"Submit"}
+        />
       </form>
     </div>
   );
