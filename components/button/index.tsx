@@ -1,11 +1,11 @@
 import clsx from "clsx";
-import { ReactNode } from "react";
+import { ReactNode, useMemo } from "react";
 type ICommonButton = {
   disabled: boolean;
   className: string;
   onClick: () => void;
   type: "button" | "submit";
-  background: "default" | "success" | "error";
+  background: "default" | "success" | "error" | "none";
   variant: "outlined" | "contained";
   startIcon: ReactNode;
   endIcon: ReactNode;
@@ -20,22 +20,28 @@ const CommonButton = ({
   type = "button",
   label,
   background = "default",
-  variant = "outlined",
+  variant = "contained",
 }: Partial<ICommonButton>) => {
+  const isContained = useMemo(() => {
+    return variant === "contained";
+  }, [variant]);
   return (
     <button
       disabled={disabled}
       type={type}
       className={clsx(
-        "font-medium rounded-lg text-sm px-5 py-2.5 me-2",
         className,
-        `bg-${background}-900`
+        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max",
+        `border-${background}-900`,
+        { [`bg-${background}-900`]: isContained }
       )}
       onClick={onClick}
     >
-      {startIcon && startIcon}
-      {label}
-      {endIcon && endIcon}
+      <div className="flex gap-2 justify-center">
+        {startIcon && startIcon}
+        {label}
+        {endIcon && endIcon}
+      </div>
     </button>
   );
 };

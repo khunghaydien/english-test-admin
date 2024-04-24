@@ -23,5 +23,4 @@ const GroupItem = ({ children, gap, top }: Partial<IGroupItem>) => {
     </div>
   );
 };
-
 export default GroupItem;

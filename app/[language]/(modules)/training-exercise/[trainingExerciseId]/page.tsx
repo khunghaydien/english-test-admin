@@ -4,7 +4,7 @@ import { useFormik } from "formik";
 import trainingExerciseValidate from "../_validate";
 import CommonInput from "@/components/input/CommonInput";
 import { useMessages } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useState, useTransition } from "react";
 import CommonSelect from "@/components/input/CommonSelect";
 import GroupItem from "@/components/common/CommonGroupItem";
 import {
@@ -15,43 +15,49 @@ import {
   TRAINING_TYPE_USE_OF_ENGLISH,
   TRAINING_TYPE_VACABULARY,
   TRAINING_TYPE_WRITING,
+  optionsTrainingType,
 } from "../_const";
 import CommonButton from "@/components/button";
-const optionsTrainingType = [
+import CommonTap from "@/components/tap/CommonTap";
+import Exercise from "../_component/Exercise";
+type IAnswer = {
+  id: string;
+  answer: string;
+  isAnwser: boolean;
+};
+
+type IQuestion = {
+  question: string;
+  answers: IAnswer[];
+};
+
+type IExerciseBaseInfo = {
+  id: string;
+  name: string;
+  type: string;
+  instruction: string;
+};
+
+type IMultipleChoiceQuestion = IExerciseBaseInfo & {
+  questions: IQuestion[];
+};
+
+type IExercise = {
+  exercise: IMultipleChoiceQuestion;
+};
+
+const initialTaps = [
   {
-    id: TRAINING_TYPE_GRAMMAR,
-    label: "Grammar",
-    value: TRAINING_TYPE_GRAMMAR,
+    id: "1",
+    tap: "Exercise 1",
   },
   {
-    id: TRAINING_TYPE_VACABULARY,
-    label: "Vacabulary",
-    value: TRAINING_TYPE_VACABULARY,
+    id: "2",
+    tap: "Exercise 2",
   },
   {
-    id: TRAINING_TYPE_LISTENING,
-    label: "Listening",
-    value: TRAINING_TYPE_LISTENING,
-  },
-  {
-    id: TRAINING_TYPE_READING,
-    label: "Reading",
-    value: TRAINING_TYPE_READING,
-  },
-  {
-    id: TRAINING_TYPE_USE_OF_ENGLISH,
-    label: "Use Of English",
-    value: TRAINING_TYPE_USE_OF_ENGLISH,
-  },
-  {
-    id: TRAINING_TYPE_WRITING,
-    label: "Writing",
-    value: TRAINING_TYPE_WRITING,
-  },
-  {
-    id: TRAINING_TYPE_EXAM,
-    label: "Exam",
-    value: TRAINING_TYPE_EXAM,
+    id: "3",
+    tap: "Exercise 3",
   },
 ];
 const TrainingExerciseDetail = () => {
@@ -67,40 +73,57 @@ const TrainingExerciseDetail = () => {
     onSubmit: (values) => {},
   });
   const { values, setFieldValue, errors, touched } = formik;
+  const [currentExercise, setCurrentExercise] = useState("1");
+
   const onChangeValue = useCallback((value: string, keyName: string) => {
     setFieldValue(keyName, value);
   }, []);
+
+  const handleClickTap = (exerciseNumber: string) => {
+    setCurrentExercise(exerciseNumber);
+  };
+
   return (
     <div className="training-exercise-detail">
       <form onSubmit={formik.handleSubmit}>
-        <GroupItem top={24} gap={24}>
-          <CommonInput
-            placeholder={t.LB_TRAINING_EXERCISE.toString()}
-            label={t.LB_TRAINING_EXERCISE.toString()}
-            keyName="trainingExercise"
-            value={values.trainingExercise}
-            onChange={onChangeValue}
-            error={!!errors.trainingExercise && !!touched.trainingExercise}
-            errorMessage={errors.trainingExercise}
+        <div className="flex flex-col gap-[24px]">
+          <GroupItem top={24} gap={24}>
+            <CommonInput
+              placeholder={t.LB_TRAINING_EXERCISE.toString()}
+              label={t.LB_TRAINING_EXERCISE.toString()}
+              keyName="trainingExercise"
+              value={values.trainingExercise}
+              onChange={onChangeValue}
+              error={!!errors.trainingExercise && !!touched.trainingExercise}
+              errorMessage={errors.trainingExercise}
+              required
+            />
+            <CommonSelect
+              options={optionsTrainingType}
+              value={values.trainingType}
+              keyName="trainingType"
+              label={"Traing Type"}
+              error={!!errors.trainingType && !!touched.trainingType}
+              errorMessage={errors.trainingType}
+              placeholder="Training Type"
+              onChange={onChangeValue}
+              required
+            />
+          </GroupItem>
+          <CommonTap
+            label="Exercise"
+            taps={initialTaps}
+            currentTap={currentExercise}
             required
+            onClick={handleClickTap}
           />
-          <CommonSelect
-            options={optionsTrainingType}
-            value={values.trainingType}
-            keyName="trainingType"
-            label={"Traing Type"}
-            error={!!errors.trainingType && !!touched.trainingType}
-            errorMessage={errors.trainingType}
-            placeholder="Training Type"
-            onChange={onChangeValue}
-            required
+          <Exercise exerciseNumber={currentExercise} />
+          <CommonButton
+            type="submit"
+            onClick={() => formik.handleSubmit}
+            label={"Submit"}
           />
-        </GroupItem>
-        <CommonButton
-          type="submit"
-          onClick={() => formik.handleSubmit}
-          label={"Submit"}
-        />
+        </div>
       </form>
     </div>
   );

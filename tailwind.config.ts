@@ -56,6 +56,11 @@ const config: Config = {
         success: successColor,
         error: errorColor,
       },
+      borderColor: {
+        default: defaultColor,
+        success: successColor,
+        error: errorColor,
+      }
     },
   },
   plugins: [
