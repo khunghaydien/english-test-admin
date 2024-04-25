@@ -4,12 +4,11 @@ import { useFormik } from "formik";
 import trainingExerciseValidate from "../_validate";
 import CommonInput from "@/components/input/CommonInput";
 import { useMessages } from "next-intl";
-import { useCallback, useState, useTransition } from "react";
+import { useCallback } from "react";
 import CommonSelect from "@/components/input/CommonSelect";
 import GroupItem from "@/components/common/CommonGroupItem";
 import { optionsTrainingType } from "../_const";
 import CommonButton from "@/components/button";
-import CommonTap from "@/components/tap/CommonTap";
 import CreateExercise from "../_component/CreateExercise";
 type IAnswer = {
   id: string;

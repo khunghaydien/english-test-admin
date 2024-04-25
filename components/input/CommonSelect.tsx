@@ -45,10 +45,10 @@ const CommonSelect = ({
 }: Partial<ICommonSelect>) => {
   const [selected, setSelected] = useState<Partial<OptionItem>>({});
   const [isOpen, setIsOpen] = useState(false);
+
   const [currentOptions, setCurrentOptions] =
     useState<Partial<OptionItem>[]>(options);
-  const selectRef = useRef(null);
-
+  const selectRef = useRef<HTMLDivElement>(null);
   useEffect(() => {
     if (!isEmpty(options)) {
       const val = options.find((item) => item.id === value);
@@ -81,7 +81,7 @@ const CommonSelect = ({
       {!!label && (
         <CommonLabel label={label} keyName={keyName} required={required} />
       )}
-      <div ref={selectRef} className="relative">
+      <div ref={selectRef} className="">
         <CommonInput
           disabled={disabled}
           value={selected.label}

@@ -1,6 +1,6 @@
 import clsx from "clsx";
 import CommonButton from "../button";
-import { ReactNode, useTransition } from "react";
+import { ReactNode } from "react";
 type ITap = {
   id: string;
   tap: string;
@@ -20,23 +20,17 @@ const CommonTap = ({
   onClick = () => {},
   currentTap,
 }: Partial<ICommonTap>) => {
-  const [isPending, startTransition] = useTransition();
-  console.log(isPending);
   return (
     <div className="common-tap w-max">
       <div className="flex items-center">
-        <label className={clsx("block font-medium")}>
+        <label className={clsx("block font-medium mr-[24px]")}>
           {label}
           {required && <span className="text-red-500">*</span>}
         </label>
         {taps.map(({ tap, id }) => (
           <CommonButton
             key={id}
-            onClick={() => {
-              startTransition(() => {
-                onClick(id);
-              });
-            }}
+            onClick={() => onClick(id)}
             className={clsx("hover:bg-default-100 hover:text-blue-500", {
               ["text-white bg-default-900"]: currentTap === id,
             })}

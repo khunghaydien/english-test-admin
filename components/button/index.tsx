@@ -31,7 +31,7 @@ const CommonButton = ({
       type={type}
       className={clsx(
         className,
-        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max",
+        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max text-white",
         `border-${background}-900`,
         { [`bg-${background}-900`]: isContained }
       )}

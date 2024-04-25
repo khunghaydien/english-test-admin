@@ -1,32 +1,54 @@
-import { TableBody, TableCell, TableRow } from "@mui/material";
 import ConditionRender from "../common/ConditionRender";
 import { isEmpty } from "lodash";
 import NoData from "../common/NoData";
-import CommonTableRow from "./CommonTableRow";
-import { ITableColumn } from "./CommonTableHead";
+import { ITableHeadColumn } from "./CommonTableHead";
+import { ReactNode } from "react";
 type ICommonTableBody = {
   loading: boolean;
-  rows: any[];
-  columns: ITableColumn[];
+  rows: any;
+  columns: ITableHeadColumn[];
+  firstRow?: ReactNode;
+  lastRow?: ReactNode;
+  onRowClick?: (row: any, columnId: string) => void;
 };
-const CommonTableBody = ({ loading, rows, columns }: ICommonTableBody) => {
+const CommonTableBody = ({
+  loading,
+  rows,
+  columns,
+  firstRow,
+  lastRow,
+  onRowClick = () => {},
+}: ICommonTableBody) => {
   return (
-    <TableBody>
+    <tbody>
       <ConditionRender
         conditional={!loading && !isEmpty(rows)}
         fallback={
-          <TableRow>
-            <TableCell>
+          <tr>
+            <td>
               <NoData></NoData>
-            </TableCell>
-          </TableRow>
+            </td>
+          </tr>
         }
       >
-        {rows.map((row: any, index: number) => (
-          <CommonTableRow key={index} row={row} columns={columns} />
+        {firstRow && firstRow}
+        {rows.map((row: any) => (
+          <tr key={row.id} className="cursor-pointer">
+            {columns.map(({ id, align }) => (
+              <td
+                align={align}
+                key={id}
+                onClick={() => onRowClick(row, id)}
+                className="px-6 py-4"
+              >
+                {row[id]}
+              </td>
+            ))}
+          </tr>
         ))}
+        {lastRow && lastRow}
       </ConditionRender>
-    </TableBody>
+    </tbody>
   );
 };
 export default CommonTableBody;
