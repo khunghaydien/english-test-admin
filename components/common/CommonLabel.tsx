@@ -1,11 +1,11 @@
 import clsx from "clsx";
 import { memo } from "react";
-type ILabel = {
+type ICommonLabel = {
   label: string;
   required: boolean;
   keyName: string;
 };
-const Label = ({ label, required, keyName }: Partial<ILabel>) => {
+const CommonLabel = ({ label, required, keyName }: Partial<ICommonLabel>) => {
   return (
     <label htmlFor={keyName} className={clsx("block mb-2 font-medium")}>
       {label}
@@ -13,4 +13,4 @@ const Label = ({ label, required, keyName }: Partial<ILabel>) => {
     </label>
   );
 };
-export default memo(Label);
+export default memo(CommonLabel);

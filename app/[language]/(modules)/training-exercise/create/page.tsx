@@ -79,17 +79,6 @@ const TrainingExerciseDetail = () => {
               onChange={onChangeValue}
               required
             />
-            <CommonSelect
-              options={optionsTrainingType}
-              value={values.trainingType}
-              keyName="trainingType"
-              label={"Traing Type"}
-              error={!!errors.trainingType && !!touched.trainingType}
-              errorMessage={errors.trainingType}
-              placeholder="Training Type"
-              onChange={onChangeValue}
-              required
-            />
           </GroupItem>
           <CreateExercise />
           <CommonButton

@@ -52,6 +52,10 @@ const TrainingExercise = () => {
   };
   return (
     <div className="training-exercise">
+      <CommonButton
+        label="Create Training Exercise"
+        onClick={() => router.push(`/training-exercise/create`)}
+      />
       <CommonTable
         loading={false}
         columns={TrainingExerciseListColumns}

@@ -53,7 +53,6 @@ const TrainingExerciseDetail = () => {
   const onChangeValue = useCallback((value: string, keyName: string) => {
     setFieldValue(keyName, value);
   }, []);
-
   return (
     <div className="training-exercise-detail">
       <form onSubmit={formik.handleSubmit}>

@@ -37,7 +37,7 @@ const CommonButton = ({
       )}
       onClick={onClick}
     >
-      <div className="flex gap-2 justify-center">
+      <div className="flex gap-2 justify-center items-center">
         {startIcon && startIcon}
         {label}
         {endIcon && endIcon}
