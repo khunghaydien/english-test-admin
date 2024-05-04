@@ -18,6 +18,7 @@ type ICommonInput = {
   endIcon: any;
   required: boolean;
   onClick: () => void;
+  onBlur: () => void;
   className: string;
   autoComplete: "on" | "off";
 };
@@ -35,6 +36,7 @@ const CommonInput = ({
   required,
   endIcon,
   onClick = () => {},
+  onBlur = () => {},
   className,
   autoComplete = "off",
 }: Partial<ICommonInput>) => {
@@ -79,6 +81,7 @@ const CommonInput = ({
           onChange={handleChange}
           disabled={disabled}
           onClick={() => !disabled && onClick()}
+          onBlur={onBlur}
         />
         {!!endIcon && (
           <div

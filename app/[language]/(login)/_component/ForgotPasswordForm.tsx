@@ -1,9 +1,9 @@
 "use client";
-import InputText from "@/components/input/InputText";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCallback } from "react";
 import CommonButton from "@/components/button";
+import CommonInput from "@/components/input/CommonInput";
 type IForgotPasswordForm = {
   onSendEmail: () => void;
   onLogin: () => void;
@@ -25,8 +25,8 @@ const ForgotPasswordForm = ({ onSendEmail, onLogin }: IForgotPasswordForm) => {
 
   // change value login form
   const handleChange = useCallback(
-    (e: any, keyName: string) => {
-      setValues({ ...values, [keyName]: e.target.value });
+    (value: string, keyName: string) => {
+      setValues({ ...values, [keyName]: value });
     },
     [values]
   );
@@ -38,7 +38,7 @@ const ForgotPasswordForm = ({ onSendEmail, onLogin }: IForgotPasswordForm) => {
 
   return (
     <form onSubmit={forgotPasswordForm.handleSubmit}>
-      <InputText
+      <CommonInput
         keyName="email"
         error={
           !!forgotPasswordForm.errors.email &&

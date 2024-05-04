@@ -120,6 +120,13 @@ const CommonSelect = ({
     debounceFn(value);
   }, []);
 
+  const onBlur = () => {
+    if (selected) {
+      setTmpValue(selected.label);
+      setTmpOptions(options);
+    }
+  };
+
   return (
     <div className="common-select" ref={selectRef}>
       {!!label && (
@@ -135,6 +142,7 @@ const CommonSelect = ({
           error={error}
           onChange={onChangeValue}
           className="cursor-pointer"
+          onBlur={onBlur}
         />
         {selected.id && (
           <div
@@ -152,7 +160,7 @@ const CommonSelect = ({
         >
           <animated.div style={slideDownAnimation}>
             {isOpen && (
-              <div className="border rounded-lg mt-1 w-full shadow-md dark:bg-[#3b3b3b] bg-white mh-[400px] overflow-y-scroll">
+              <div className="border rounded-lg mt-1 w-full shadow-md dark:bg-[#3b3b3b] bg-white mh-[400px] overflow-y-auto">
                 {!isEmpty(tmpOptions) ? (
                   tmpOptions.map((option: OptionItem, index) => (
                     <div

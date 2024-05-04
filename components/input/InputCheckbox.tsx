@@ -1,5 +1,3 @@
-import { Checkbox } from "@mui/material";
-
 type ICheckbox = {
   disabled?: boolean;
   checked?: boolean;
@@ -22,11 +20,11 @@ const InputCheckbox = ({
       className="input-checkbox flex gap-1 items-center cursor-pointer"
       onClick={handleClick}
     >
-      <Checkbox
+      <input
+        type="checkbox"
         className="text-blue-900"
         disabled={disabled}
         checked={checked}
-        indeterminate={indeterminate}
       />
       {label && <div>{label}</div>}
     </div>

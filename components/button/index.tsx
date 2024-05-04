@@ -1,15 +1,17 @@
 import clsx from "clsx";
-import { ReactNode, useMemo } from "react";
+import { ReactNode } from "react";
 type ICommonButton = {
   disabled: boolean;
   className: string;
   onClick: () => void;
   type: "button" | "submit";
-  background: "default" | "success" | "error" | "none";
-  variant: "outlined" | "contained";
+  background: string;
+  color: string;
+  borderColor: string;
   startIcon: ReactNode;
   endIcon: ReactNode;
   label: string;
+  variant: "contained" | "outlined" | "text";
 };
 const CommonButton = ({
   disabled,
@@ -20,20 +22,20 @@ const CommonButton = ({
   type = "button",
   label,
   background = "default",
+  color = "white",
+  borderColor = "blue",
   variant = "contained",
 }: Partial<ICommonButton>) => {
-  const isContained = useMemo(() => {
-    return variant === "contained";
-  }, [variant]);
   return (
     <button
       disabled={disabled}
       type={type}
       className={clsx(
         className,
-        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max text-white",
-        `border-${background}-900`,
-        { [`bg-${background}-900`]: isContained }
+        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max",
+        { [`bg-${background}-900 text-${color}`]: variant === "contained" },
+        { [`border-${borderColor}-500 border`]: variant === "outlined" },
+        { [`text-${color}`]: variant === "text" }
       )}
       onClick={onClick}
     >

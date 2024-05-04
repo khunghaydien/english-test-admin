@@ -60,6 +60,11 @@ const config: Config = {
         default: defaultColor,
         success: successColor,
         error: errorColor,
+      },
+      textColor: {
+        default: defaultColor,
+        success: successColor,
+        error: errorColor,
       }
     },
   },

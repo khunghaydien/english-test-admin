@@ -1,5 +1,4 @@
 "use client";
-import InputText from "@/components/input/InputText";
 import { useFormik } from "formik";
 import { AppDispatch } from "@/store";
 import { login } from "@/store/reducer/auth";
@@ -8,6 +7,7 @@ import * as Yup from "yup";
 import { useCallback } from "react";
 import InputCheckbox from "@/components/input/InputCheckbox";
 import CommonButton from "@/components/button";
+import CommonInput from "@/components/input/CommonInput";
 type ILoginForm = {
   onLogin: () => void;
   onForgotPassword: () => void;
@@ -33,8 +33,8 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
 
   // change value login form
   const handleChange = useCallback(
-    (e: any, keyName: string) => {
-      setValues({ ...values, [keyName]: e.target.value });
+    (value: string, keyName: string) => {
+      setValues({ ...values, [keyName]: value });
     },
     [values]
   );
@@ -61,15 +61,14 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
 
   return (
     <form onSubmit={loginFormik.handleSubmit}>
-      <InputText
+      <CommonInput
         keyName="email"
         error={!!loginFormik.errors.email && !!loginFormik.touched.email}
         errorMessage={loginFormik.errors.email}
         value={loginFormik.values.email}
         onChange={handleChange}
       />
-      <InputText
-        isPassword
+      <CommonInput
         type={loginFormik.values.isShowPassword ? "text" : "password"}
         keyName="password"
         error={!!loginFormik.errors.password && !!loginFormik.touched.password}
