@@ -10,6 +10,7 @@ import GroupItem from "@/components/common/CommonGroupItem";
 import { optionsTrainingType } from "../_const";
 import CommonButton from "@/components/button";
 import CreateExercise from "../_component/CreateExercise";
+import AnimationModal from "@/components/modal/AnimationModal";
 type IAnswer = {
   id: string;
   answer: string;
@@ -81,6 +82,7 @@ const TrainingExerciseDetail = () => {
             />
           </GroupItem>
           <CreateExercise />
+          <AnimationModal />
           <CommonButton
             type="submit"
             onClick={() => formik.handleSubmit}

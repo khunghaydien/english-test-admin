@@ -1,7 +1,9 @@
-import { ReactNode, useRef } from "react";
+import { ReactNode, useEffect, useRef } from "react";
 import CloseIcon from "@mui/icons-material/Close";
 import { useClickOutside } from "@/utils";
 import CommonButton from "../button";
+import gsap from "gsap";
+
 type ICommonModal = {
   children: ReactNode;
   title: string;
@@ -26,12 +28,16 @@ const CommonModal = ({
   useClickOutside(modalRef, () => {
     onClose();
   });
+  useEffect(() => {});
   return (
     <dialog
-      className="fixed z-50 flex bg-black bg-opacity-50 justify-center items-center w-full h-full md:inset-0"
+      className="modal fixed z-50 flex bg-black bg-opacity-50 justify-center items-center w-full h-full md:inset-0"
       onClose={onClose}
     >
-      <div className="relative p-4 w-full max-w-2xl max-h-full" ref={modalRef}>
+      <div
+        className="modal-container relative p-4 w-full max-w-2xl max-h-full"
+        ref={modalRef}
+      >
         <div className="relative bg-white rounded-lg shadow dark:bg-gray-700 dark:text-white">
           <div className="flex items-center justify-between p-4 md:p-5 border-b border-default-200 rounded-t font-bold">
             {title?.toUpperCase()}
