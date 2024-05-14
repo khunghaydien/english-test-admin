@@ -1,17 +1,10 @@
 type ICheckbox = {
   disabled?: boolean;
   checked?: boolean;
-  indeterminate?: boolean;
   label?: string;
   onClick?: () => void;
 };
-const InputCheckbox = ({
-  disabled,
-  checked,
-  indeterminate,
-  label,
-  onClick,
-}: ICheckbox) => {
+const InputCheckbox = ({ disabled, checked, label, onClick }: ICheckbox) => {
   const handleClick = () => {
     !!onClick && !disabled && onClick();
   };

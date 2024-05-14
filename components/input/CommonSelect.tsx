@@ -18,6 +18,7 @@ import ErrorMessage from "../common/ErrorMessage";
 import CloseIcon from "@mui/icons-material/Close";
 import _ from "lodash";
 import { INPUT_TIME_DELAY } from "@/const/app.const";
+
 export type OptionItem = {
   id: string;
   value: string;
@@ -52,18 +53,30 @@ const CommonSelect = ({
   placeholder,
   disabled,
 }: Partial<ICommonSelect>) => {
-  const [selected, setSelected] = useState<Partial<OptionItem>>({});
+  const [selected, setSelected] = useState<OptionItem | null>(null);
   const [isOpen, setIsOpen] = useState(false);
   const [isBottom, setIsBottom] = useState(false);
-  const [tmpValue, setTmpValue] = useState(selected.label);
+  const [tmpValue, setTmpValue] = useState(selected?.label);
   const selectRef = useRef<HTMLDivElement>(null);
   const [tmpOptions, setTmpOptions] = useState(options);
+  const optionRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const [targetOption, setTargetOption] = useState<number>(0);
   useEffect(() => {
     if (!isEmpty(options)) {
       const val = options.find((item) => item.id === value);
       if (val) setSelected(val);
     }
   }, [value]);
+
+  useEffect(() => {
+    if (isOpen) {
+      const index = selected ? tmpOptions.indexOf(selected) : 0;
+      if (optionRefs.current[index]) {
+        optionRefs.current[index]?.focus();
+        setTargetOption(index);
+      }
+    }
+  }, [isOpen, selected, tmpOptions]);
 
   const getOptionHeight = useMemo(() => {
     if (options.length < 10) {
@@ -80,7 +93,7 @@ const CommonSelect = ({
   }, []);
 
   useEffect(() => {
-    setTmpValue(selected.label);
+    setTmpValue(selected?.label);
   }, [selected]);
 
   const handleSelected = (option: OptionItem) => {
@@ -99,7 +112,7 @@ const CommonSelect = ({
   });
 
   const clearValue = () => {
-    setSelected({});
+    setSelected(null);
     onChange("", keyName);
   };
 
@@ -127,6 +140,43 @@ const CommonSelect = ({
     }
   };
 
+  const onChangeKeyDown = (e: any) => {
+    const keyHandlers: { [key: number]: () => void } = {
+      38: () => {
+        // Up arrow key
+        if (targetOption > 0) {
+          const newIndex = targetOption - 1;
+          setTargetOption(newIndex);
+          optionRefs.current[newIndex]?.focus();
+        }
+      },
+      40: () => {
+        // Down arrow key
+        if (targetOption < tmpOptions.length - 1) {
+          const newIndex = targetOption + 1;
+          setTargetOption(newIndex);
+          optionRefs.current[newIndex]?.focus();
+        }
+      },
+      13: () => {
+        // Enter key
+        if (isOpen) {
+          handleSelected(tmpOptions[targetOption]);
+          setIsOpen(false);
+        }
+      },
+      27: () => {
+        // Escape key
+        if (isOpen) {
+          setIsOpen(false);
+        }
+      },
+    };
+    if (keyHandlers[e.keyCode]) {
+      e.preventDefault();
+      keyHandlers[e.keyCode]();
+    }
+  };
   return (
     <div className="common-select" ref={selectRef}>
       {!!label && (
@@ -144,9 +194,9 @@ const CommonSelect = ({
           className="cursor-pointer"
           onBlur={onBlur}
         />
-        {selected.id && (
+        {selected?.id && (
           <div
-            className="flex items-center justify-center cursor-pointer absolute w-[32px] h-[32px] top-[5.5px] end-5 rounded-full hover:bg-default-200 hover:text-black"
+            className="flex items-center justify-center cursor-pointer absolute w-[32px] h-[32px] top-[3px] end-5 rounded-full hover:bg-default-200 hover:text-black"
             onClick={clearValue}
           >
             <CloseIcon className="text-[13px]" />
@@ -164,18 +214,21 @@ const CommonSelect = ({
                 {!isEmpty(tmpOptions) ? (
                   tmpOptions.map((option: OptionItem, index) => (
                     <div
-                      key={option.id}
+                      key={index}
+                      ref={(el) => (optionRefs.current[index] = el)}
+                      tabIndex={0}
                       className={clsx(
                         "py-2 px-4 cursor-pointer first:rounded-tl-lg first:rounded-tr-lg last:rounded-bl-lg last:rounded-br-lg",
                         {
                           hidden: !!option.id && ignoreIds.includes(option.id),
                           "bg-default-500 text-white":
-                            selected.id === option.id,
+                            selected?.id === option.id,
                           "hover:bg-default-100 hover:text-black":
-                            selected.id !== option.id,
+                            selected?.id !== option.id,
                         }
                       )}
                       onClick={() => handleSelected(option)}
+                      onKeyDown={(e: any) => onChangeKeyDown(e)}
                     >
                       <div title={option.label}>
                         {getTextEllipsis(option.label as string)}
