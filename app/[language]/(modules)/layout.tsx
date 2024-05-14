@@ -36,7 +36,7 @@ const ModuleLayout = ({
     },
     {
       href: "/training-exercise",
-      label: "Traning Exercise",
+      label: "Training Exercise",
     },
   ];
   return (
@@ -59,7 +59,7 @@ const ModuleLayout = ({
             />
           ))}
         </div>
-        <div className="flex flex-col gap-2">
+        <div className="flex flex-col items-center gap-2">
           <div className="pb-2">
             <CommonButton
               startIcon={<PermPhoneMsg />}

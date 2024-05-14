@@ -1,5 +1,5 @@
 import CommonButton from "@/components/button";
-import CommonModal from "@/components/modal";
+import Modal from "@/components/modal";
 import CommonTap from "@/components/tap/CommonTap";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
@@ -9,6 +9,10 @@ const CreateExercise = ({}: ICreateExercise) => {
   const [showModalCreateExercise, setShowModalCreateExercise] = useState(false);
   const handleCreateExercise = () => {
     setShowModalCreateExercise(true);
+  };
+
+  const handleClose = () => {
+    setShowModalCreateExercise(false);
   };
   return (
     <div className="create-exercise">
@@ -20,12 +24,9 @@ const CreateExercise = ({}: ICreateExercise) => {
           onClick={handleCreateExercise}
         />
         {showModalCreateExercise && (
-          <CommonModal
-            title="test"
-            onClose={() => setShowModalCreateExercise(false)}
-          >
-            ssss
-          </CommonModal>
+          <Modal onClose={handleClose} title="test">
+            <p>Your content here</p>
+          </Modal>
         )}
       </div>
     </div>

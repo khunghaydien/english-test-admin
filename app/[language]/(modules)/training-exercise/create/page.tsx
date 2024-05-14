@@ -72,7 +72,7 @@ const TrainingExerciseDetail = () => {
               options={optionsTrainingType}
               value={values.trainingType}
               keyName="trainingType"
-              label={"Traing Type"}
+              label={"Training Type"}
               error={!!errors.trainingType && !!touched.trainingType}
               errorMessage={errors.trainingType}
               placeholder="Training Type"

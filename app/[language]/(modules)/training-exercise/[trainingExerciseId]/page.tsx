@@ -4,13 +4,12 @@ import { useFormik } from "formik";
 import trainingExerciseValidate from "../_validate";
 import CommonInput from "@/components/input/CommonInput";
 import { useMessages } from "next-intl";
-import { useCallback, useState, useTransition } from "react";
+import { useCallback } from "react";
 import CommonSelect from "@/components/input/CommonSelect";
 import GroupItem from "@/components/common/CommonGroupItem";
 import { optionsTrainingType } from "../_const";
 import CommonButton from "@/components/button";
-import CommonTap from "@/components/tap/CommonTap";
-import CreateExercise from "../_component/CreateExercise";
+import DetailExercise from "../_component/DetailExercise";
 type IAnswer = {
   id: string;
   answer: string;
@@ -72,18 +71,7 @@ const TrainingExerciseDetail = () => {
               options={optionsTrainingType}
               value={values.trainingType}
               keyName="trainingType"
-              label={"Traing Type"}
-              error={!!errors.trainingType && !!touched.trainingType}
-              errorMessage={errors.trainingType}
-              placeholder="Training Type"
-              onChange={onChangeValue}
-              required
-            />
-            <CommonSelect
-              options={optionsTrainingType}
-              value={values.trainingType}
-              keyName="trainingType"
-              label={"Traing Type"}
+              label={"Training Type"}
               error={!!errors.trainingType && !!touched.trainingType}
               errorMessage={errors.trainingType}
               placeholder="Training Type"
@@ -91,7 +79,7 @@ const TrainingExerciseDetail = () => {
               required
             />
           </GroupItem>
-          <CreateExercise />
+          <DetailExercise />
           <CommonButton
             type="submit"
             onClick={() => formik.handleSubmit}
