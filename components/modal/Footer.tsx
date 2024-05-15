@@ -9,14 +9,14 @@ export type IFooterModal = {
   labelButtonSubmit: string;
 };
 const FooterModal = ({
-  onClose = () => {},
+  onClose = () => { },
   customFooter,
-  onSubmit = () => {},
+  onSubmit = () => { },
   labelButtonCancel = "Cancel",
   labelButtonSubmit = "Submit",
 }: IFooterModal) => {
   return (
-    <div className="flex items-center justify-end width-full p-4 md:p-5 border-t border-default-200 rounded-b">
+    <div className="flex items-center justify-end width-full p-4 md:p-5 rounded-b">
       {customFooter ? (
         customFooter
       ) : (

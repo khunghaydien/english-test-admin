@@ -1,11 +1,11 @@
 import CommonButton from "@/components/button";
-import Modal from "@/components/modal";
+import FadeModal from "@/components/modal/FadeModal";
 import CommonTap from "@/components/tap/CommonTap";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 
 type ICreateExercise = {};
-const CreateExercise = ({}: ICreateExercise) => {
+const CreateExercise = ({ }: ICreateExercise) => {
   const [showModalCreateExercise, setShowModalCreateExercise] = useState(false);
   const handleCreateExercise = () => {
     setShowModalCreateExercise(true);
@@ -24,9 +24,13 @@ const CreateExercise = ({}: ICreateExercise) => {
           onClick={handleCreateExercise}
         />
         {showModalCreateExercise && (
-          <Modal onClose={handleClose} title="test">
-            <p>Your content here</p>
-          </Modal>
+          <FadeModal
+            title="Fade Modal Title"
+            onClose={handleClose}
+            onSubmit={() => { console.log('Fade Modal Submitted'); }}
+          >
+            <p>This is the content of the Fade modal.</p>
+          </FadeModal>
         )}
       </div>
     </div>

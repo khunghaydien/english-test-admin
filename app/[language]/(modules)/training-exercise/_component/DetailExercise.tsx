@@ -1,11 +1,12 @@
 import CommonButton from "@/components/button";
-import CommonModal from "@/components/modal/CommonModal";
+import CommonModal from "@/components/modal/FadeModal";
+import SlideModal from "@/components/modal/SlideModal";
 import CommonTap from "@/components/tap/CommonTap";
 import AddIcon from "@mui/icons-material/Add";
 import { useState } from "react";
 
 type IDetailExercise = {};
-const DetailExercise = ({}: IDetailExercise) => {
+const DetailExercise = ({ }: IDetailExercise) => {
   const [showModalDetailExercise, setShowModalDetailExercise] = useState(false);
   const handleDetailExercise = () => {
     setShowModalDetailExercise(true);
@@ -23,9 +24,13 @@ const DetailExercise = ({}: IDetailExercise) => {
           onClick={handleDetailExercise}
         />
         {showModalDetailExercise && (
-          <CommonModal onClose={handleClose} title="test">
-            <p>Your content here</p>
-          </CommonModal>
+          <SlideModal
+            title="Slide Modal Title"
+            onClose={handleClose}
+            onSubmit={() => { console.log('Slide Modal Submitted'); }}
+          >
+            <p>This is the content of the slide modal.</p>
+          </SlideModal>
         )}
       </div>
     </div>
