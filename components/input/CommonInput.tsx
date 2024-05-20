@@ -68,7 +68,7 @@ const CommonInput = ({
           id={keyName}
           className={clsx(
             className,
-            "border rounded-lg block w-full p-2 outline-none",
+            "border rounded-lg block w-full p-2 outline-none bg-inherit",
             {
               "border-red-500": error,
               "pl-10": startIcon,

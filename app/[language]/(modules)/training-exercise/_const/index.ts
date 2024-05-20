@@ -42,3 +42,18 @@ export const optionsTrainingType = [
         value: TRAINING_TYPE_EXAM,
     },
 ];
+
+export const MULTIPLE_CHOICE = '1';
+export const FILL_BLANK = '2';
+export const exerciseTypeOption = [
+    {
+        id: MULTIPLE_CHOICE,
+        label: "Multiple Choice",
+        value: MULTIPLE_CHOICE,
+    },
+    {
+        id: FILL_BLANK,
+        label: "Fill Blank",
+        value: FILL_BLANK,
+    },
+];

@@ -1,11 +1,19 @@
 import CommonButton from "@/components/button";
-import FadeModal from "@/components/modal/FadeModal";
 import CommonTap from "@/components/tap/CommonTap";
 import AddIcon from "@mui/icons-material/Add";
-import { useState } from "react";
+import { useFormik } from "formik";
+import { useCallback, useState } from "react";
+import trainingExerciseValidate from "../_validate";
+import GroupItem from "@/components/common/CommonGroupItem";
+import CommonInput from "@/components/input/CommonInput";
+import { useMessages } from "next-intl";
+import CommonSelect from "@/components/input/CommonSelect";
+import { exerciseTypeOption } from "../_const";
+import FullModal from "@/components/modal/FullModal";
 
 type ICreateExercise = {};
-const CreateExercise = ({ }: ICreateExercise) => {
+const CreateExercise = ({}: ICreateExercise) => {
+  const t = useMessages();
   const [showModalCreateExercise, setShowModalCreateExercise] = useState(false);
   const handleCreateExercise = () => {
     setShowModalCreateExercise(true);
@@ -14,6 +22,21 @@ const CreateExercise = ({ }: ICreateExercise) => {
   const handleClose = () => {
     setShowModalCreateExercise(false);
   };
+
+  const { trainingExerciseDetailValidate } = trainingExerciseValidate();
+  const formik = useFormik({
+    initialValues: {
+      exerciseConstruction: "",
+      exerciseType: "",
+      exercises: [],
+    },
+    validationSchema: trainingExerciseDetailValidate,
+    onSubmit: (values) => {},
+  });
+  const { values, setFieldValue, errors, touched } = formik;
+  const onChangeValue = useCallback((value: string, keyName: string) => {
+    setFieldValue(keyName, value);
+  }, []);
   return (
     <div className="create-exercise">
       <div className="flex items-center gap-[24px]">
@@ -24,13 +47,42 @@ const CreateExercise = ({ }: ICreateExercise) => {
           onClick={handleCreateExercise}
         />
         {showModalCreateExercise && (
-          <FadeModal
-            title="Fade Modal Title"
+          <FullModal
+            title="Create Exercise"
             onClose={handleClose}
-            onSubmit={() => { console.log('Fade Modal Submitted'); }}
+            onSubmit={formik.handleSubmit}
           >
-            <p>This is the content of the Fade modal.</p>
-          </FadeModal>
+            <form onSubmit={formik.handleSubmit}>
+              <div className="flex flex-col gap-[24px]">
+                <GroupItem top={24} gap={24}>
+                  <CommonInput
+                    required
+                    placeholder={"Exercise Construction"}
+                    label={"Exercise Construction"}
+                    keyName="exerciseConstruction"
+                    value={values.exerciseConstruction}
+                    onChange={onChangeValue}
+                    error={
+                      !!errors.exerciseConstruction &&
+                      !!touched.exerciseConstruction
+                    }
+                    errorMessage={errors.exerciseConstruction}
+                  />
+                  <CommonSelect
+                    required
+                    label={"Exercise Type"}
+                    placeholder="Exercise Type"
+                    keyName="exerciseType"
+                    options={exerciseTypeOption}
+                    value={values.exerciseType}
+                    error={!!errors.exerciseType && !!touched.exerciseType}
+                    errorMessage={errors.exerciseType}
+                    onChange={onChangeValue}
+                  />
+                </GroupItem>
+              </div>
+            </form>
+          </FullModal>
         )}
       </div>
     </div>
