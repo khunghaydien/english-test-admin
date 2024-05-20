@@ -11,7 +11,7 @@ import CommonLabel from "../common/CommonLabel";
 import { isEmpty } from "lodash";
 import clsx from "clsx";
 import { getTextEllipsis, useClickOutside } from "@/utils";
-import CommonInput from "./CommonInput";
+import InputText from "./InputText";
 import ArrowDropDownIcon from "@mui/icons-material/ArrowDropDown";
 import { useSpring, animated } from "@react-spring/web";
 import ErrorMessage from "../common/ErrorMessage";
@@ -183,7 +183,7 @@ const CommonSelect = ({
         <CommonLabel label={label} keyName={keyName} required={required} />
       )}
       <div className="relative">
-        <CommonInput
+        <InputText
           disabled={disabled}
           value={tmpValue}
           onClick={() => setIsOpen(true)}

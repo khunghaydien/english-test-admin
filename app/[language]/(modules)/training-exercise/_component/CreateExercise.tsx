@@ -5,11 +5,12 @@ import { useFormik } from "formik";
 import { useCallback, useState } from "react";
 import trainingExerciseValidate from "../_validate";
 import GroupItem from "@/components/common/CommonGroupItem";
-import CommonInput from "@/components/input/CommonInput";
+import InputText from "@/components/input/InputText";
 import { useMessages } from "next-intl";
 import CommonSelect from "@/components/input/CommonSelect";
 import { exerciseTypeOption } from "../_const";
 import FullModal from "@/components/modal/FullModal";
+import MultipleChoice from "@/components/common/exercise/multiple-choice";
 
 type ICreateExercise = {};
 const CreateExercise = ({}: ICreateExercise) => {
@@ -55,7 +56,7 @@ const CreateExercise = ({}: ICreateExercise) => {
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col gap-[24px]">
                 <GroupItem top={24} gap={24}>
-                  <CommonInput
+                  <InputText
                     required
                     placeholder={"Exercise Construction"}
                     label={"Exercise Construction"}
@@ -80,6 +81,7 @@ const CreateExercise = ({}: ICreateExercise) => {
                     onChange={onChangeValue}
                   />
                 </GroupItem>
+                <MultipleChoice />
               </div>
             </form>
           </FullModal>

@@ -2,7 +2,7 @@
 
 import { useFormik } from "formik";
 import trainingExerciseValidate from "../_validate";
-import CommonInput from "@/components/input/CommonInput";
+import InputText from "@/components/input/InputText";
 import { useMessages } from "next-intl";
 import { useCallback } from "react";
 import CommonSelect from "@/components/input/CommonSelect";
@@ -58,7 +58,7 @@ const TrainingExerciseDetail = () => {
       <form onSubmit={formik.handleSubmit}>
         <div className="flex flex-col gap-[24px]">
           <GroupItem top={24} gap={24}>
-            <CommonInput
+            <InputText
               placeholder={t.LB_TRAINING_EXERCISE.toString()}
               label={t.LB_TRAINING_EXERCISE.toString()}
               keyName="trainingExercise"

@@ -3,7 +3,7 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { useCallback } from "react";
 import CommonButton from "@/components/button";
-import CommonInput from "@/components/input/CommonInput";
+import InputText from "@/components/input/InputText";
 type IForgotPasswordForm = {
   onSendEmail: () => void;
   onLogin: () => void;
@@ -38,7 +38,7 @@ const ForgotPasswordForm = ({ onSendEmail, onLogin }: IForgotPasswordForm) => {
 
   return (
     <form onSubmit={forgotPasswordForm.handleSubmit}>
-      <CommonInput
+      <InputText
         keyName="email"
         error={
           !!forgotPasswordForm.errors.email &&

@@ -5,9 +5,9 @@ import { login } from "@/store/reducer/auth";
 import { useDispatch } from "react-redux";
 import * as Yup from "yup";
 import { useCallback } from "react";
-import InputCheckbox from "@/components/input/InputCheckbox";
-import CommonButton from "@/components/button";
 import CommonInput from "@/components/input/CommonInput";
+import CommonButton from "@/components/button";
+import InputText from "@/components/input/InputText";
 type ILoginForm = {
   onLogin: () => void;
   onForgotPassword: () => void;
@@ -61,14 +61,14 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
 
   return (
     <form onSubmit={loginFormik.handleSubmit}>
-      <CommonInput
+      <InputText
         keyName="email"
         error={!!loginFormik.errors.email && !!loginFormik.touched.email}
         errorMessage={loginFormik.errors.email}
         value={loginFormik.values.email}
         onChange={handleChange}
       />
-      <CommonInput
+      <InputText
         type={loginFormik.values.isShowPassword ? "text" : "password"}
         keyName="password"
         error={!!loginFormik.errors.password && !!loginFormik.touched.password}
@@ -77,10 +77,10 @@ const LoginForm = ({ onLogin, onForgotPassword }: ILoginForm) => {
         onChange={handleChange}
       />
       <div className="flex items-center justify-between">
-        <InputCheckbox
+        <CommonInput
           label="Show Password"
           onClick={handleTogglePassword}
-        ></InputCheckbox>
+        ></CommonInput>
         <div
           onClick={onForgotPassword}
           className="text-blue-500 cursor-pointer font-bold pr-2"
