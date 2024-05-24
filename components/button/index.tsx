@@ -31,11 +31,13 @@ const CommonButton = ({
       disabled={disabled}
       type={type}
       className={clsx(
-        className,
-        "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max",
+        className
+          ? className
+          : "font-medium rounded-lg text-sm px-5 py-2.5 me-2 w-max",
         { [`bg-${background}-900 text-${color}`]: variant === "contained" },
         { [`border-${borderColor}-500 border`]: variant === "outlined" },
-        { [`text-${color}`]: variant === "text" }
+        { [`text-${color}`]: variant === "text" },
+        { [`opacity-50`]: disabled }
       )}
       onClick={onClick}
     >

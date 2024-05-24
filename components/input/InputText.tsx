@@ -5,6 +5,7 @@ import ErrorMessage from "../common/ErrorMessage";
 import Label from "../common/CommonLabel";
 
 type IInputText = {
+  height: string;
   keyName: string;
   value: string;
   type: "text" | "password";
@@ -23,6 +24,7 @@ type IInputText = {
   autoComplete: "on" | "off";
 };
 const InputText = ({
+  height = "42px",
   keyName,
   value = "",
   type = "text",
@@ -68,6 +70,7 @@ const InputText = ({
           id={keyName}
           className={clsx(
             "border rounded-lg block w-full p-2 outline-none bg-inherit",
+            `h-[${height}]`,
             {
               "border-red-500": error,
               "pl-10": startIcon,

@@ -16,7 +16,7 @@ const GroupItem = ({ children, gap, top }: Partial<IGroupItem>) => {
       })}
     >
       {React.Children.map(children, (child, index) => (
-        <div key={index} className="flex-1">
+        <div key={index} className="flex-2">
           {child}
         </div>
       ))}

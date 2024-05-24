@@ -25,6 +25,7 @@ const CommonInput = ({
         className="text-blue-900 w-[24px] h-[24px]"
         disabled={disabled}
         checked={checked}
+        onChange={() => {}}
       />
       {label && <div>{label}</div>}
     </div>

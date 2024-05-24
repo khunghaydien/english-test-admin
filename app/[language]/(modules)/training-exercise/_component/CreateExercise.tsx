@@ -10,7 +10,8 @@ import { useMessages } from "next-intl";
 import CommonSelect from "@/components/input/CommonSelect";
 import { exerciseTypeOption } from "../_const";
 import FullModal from "@/components/modal/FullModal";
-import MultipleChoice from "@/components/common/exercise/multiple-choice";
+import MultipleChoice from "@/components/common/answer/MultipleChoice";
+import Exercise from "@/components/common/exercise";
 
 type ICreateExercise = {};
 const CreateExercise = ({}: ICreateExercise) => {
@@ -81,7 +82,7 @@ const CreateExercise = ({}: ICreateExercise) => {
                     onChange={onChangeValue}
                   />
                 </GroupItem>
-                <MultipleChoice />
+                <Exercise />
               </div>
             </form>
           </FullModal>
