@@ -10,11 +10,23 @@ import { useMessages } from "next-intl";
 import CommonSelect from "@/components/input/CommonSelect";
 import { exerciseTypeOption } from "../_const";
 import FullModal from "@/components/modal/FullModal";
-import MultipleChoice from "@/components/common/answer/MultipleChoice";
-import Exercise from "@/components/common/exercise";
+import MultipleChoiceExercise, { IExerciseMultipleChoice } from "@/components/common/exercise/multiple-choice";
+import { updateCodeFormatAlphabet } from "@/utils";
 
 type ICreateExercise = {};
-const CreateExercise = ({}: ICreateExercise) => {
+
+const defaultExercises: IExerciseMultipleChoice[] = [{
+  question: '',
+  answers: updateCodeFormatAlphabet(
+    Array(4)
+      .fill({
+        code: '',
+        value: '',
+        isCorrect: false
+      }))
+}]
+
+const CreateExercise = ({ }: ICreateExercise) => {
   const t = useMessages();
   const [showModalCreateExercise, setShowModalCreateExercise] = useState(false);
   const handleCreateExercise = () => {
@@ -30,15 +42,24 @@ const CreateExercise = ({}: ICreateExercise) => {
     initialValues: {
       exerciseConstruction: "",
       exerciseType: "",
-      exercises: [],
+      exercises: defaultExercises,
     },
     validationSchema: trainingExerciseDetailValidate,
-    onSubmit: (values) => {},
+    onSubmit: (values) => { },
   });
   const { values, setFieldValue, errors, touched } = formik;
+
   const onChangeValue = useCallback((value: string, keyName: string) => {
     setFieldValue(keyName, value);
   }, []);
+
+  const onChangeExercise = useCallback((value: string | boolean, keyName: string, exerciseIndex: number, answerIndex?: number) => {
+    if (!!answerIndex?.toString())
+      setFieldValue(`exercises.${exerciseIndex}.answers.${answerIndex}.${keyName}`, value);
+    else
+      setFieldValue(`exercises.${exerciseIndex}.${keyName}`, value);
+  }, [])
+
   return (
     <div className="create-exercise">
       <div className="flex items-center gap-[24px]">
@@ -56,7 +77,7 @@ const CreateExercise = ({}: ICreateExercise) => {
           >
             <form onSubmit={formik.handleSubmit}>
               <div className="flex flex-col gap-[24px]">
-                <GroupItem top={24} gap={24}>
+                <GroupItem gap={24}>
                   <InputText
                     required
                     placeholder={"Exercise Construction"}
@@ -82,7 +103,15 @@ const CreateExercise = ({}: ICreateExercise) => {
                     onChange={onChangeValue}
                   />
                 </GroupItem>
-                <Exercise />
+                {values.exercises.map((exercise, exerciseIndex) => (
+                  <MultipleChoiceExercise
+                    key={exerciseIndex}
+                    exercise={exercise}
+                    exerciseIndex={exerciseIndex}
+                    onChangeExercise={onChangeExercise}
+                    errors={errors?.exercises?.[exerciseIndex]}
+                    touched={touched?.exercises?.[exerciseIndex]} />
+                ))}
               </div>
             </form>
           </FullModal>

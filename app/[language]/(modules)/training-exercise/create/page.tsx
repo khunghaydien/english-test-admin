@@ -46,7 +46,7 @@ const TrainingExerciseDetail = () => {
       exercises: [],
     },
     validationSchema: trainingExerciseDetailValidate,
-    onSubmit: (values) => {},
+    onSubmit: (values) => { },
   });
   const { values, setFieldValue, errors, touched } = formik;
   const onChangeValue = useCallback((value: string, keyName: string) => {

@@ -1,4 +1,6 @@
 import type { Config } from 'tailwindcss'
+const plugin = require('tailwindcss/plugin')
+
 const defaultColor = {
   50: "#e3f2fd",
   100: "#bbdefb",
@@ -69,6 +71,13 @@ const config: Config = {
     },
   },
   plugins: [
+    plugin(function ({ addComponents }: any) {
+      addComponents({
+        // '.flex-custom': {
+        //   '@apply flex items-center': {},
+        // },
+      })
+    }),
   ],
   darkMode: 'class'
 }

@@ -12,7 +12,7 @@ const MultipleChoice = ({
   code,
   answer,
   isCorrect,
-  onChange = () => {},
+  onChange = () => { },
   type,
 }: IMultipleChoice) => {
   return (

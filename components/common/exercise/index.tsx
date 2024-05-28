@@ -1,14 +1,26 @@
-import FillBlank from "../answer/FillBlank";
-import MultipleChoice from "../answer/MultipleChoice";
+import InputText from "@/components/input/InputText";
+import GroupItem from "../CommonGroupItem";
 
-const Exercise = () => {
+type IExercise = {
+}
+const Exercise = ({ }: IExercise) => {
   return (
     <>
-      <MultipleChoice initialAnswers={null} isAddAnswer max={4} min={2} />
-      <FillBlank
-        content={"test .... chúng ta không .... nhau .... suốt kiếp ...."}
-        answers={[]}
-      ></FillBlank>
+      <GroupItem top={24} gap={24}>
+        {/* <InputText
+          required
+          placeholder={"Question"}
+          label={"Question"}
+          keyName="question"
+          value={values.exercises[0].question}
+          onChange={onChangeValue}
+          error={
+            !!errors.exercises[0].question &&
+            !!touched.exercises[0].question
+          }
+          errorMessage={errors.exercises[0].question}
+        /> */}
+      </GroupItem>
     </>
   );
 };
