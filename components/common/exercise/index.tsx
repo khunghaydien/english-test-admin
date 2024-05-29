@@ -1,6 +1,7 @@
 import { FILL_BLANK, MULTIPLE_CHOICE } from '@/app/[language]/(modules)/training-exercise/_const';
 import React from 'react';
 import MultipleChoice from './multiple-choice';
+import SingleChoice from './single-choice';
 type IExercise = {
     type: string;
     exercises: any;

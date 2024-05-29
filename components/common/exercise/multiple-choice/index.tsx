@@ -1,9 +1,12 @@
 import { updateCodeFormatAlphabet } from "@/utils"
-import MultipleChoiceExercise, { IExerciseMultipleChoice } from "./MultipleChoiceExercise"
 import { useCallback } from "react"
 import CommonButton from "@/components/button"
+import { IMultipleChoiceItem } from "../single-choice/WrappedChoiceExercise"
+import MultipleChoiceExercise from "./MultipleChoiceExercise"
+import SingleChoice from "../single-choice"
+// import MultipleChoiceExercise, { IMultipleChoiceItem } from "./MultipleChoiceExercise"
 
-const defaultExercises: IExerciseMultipleChoice = {
+const defaultExercises: IMultipleChoiceItem = {
     question: '',
     answers: updateCodeFormatAlphabet(
         Array(4)
@@ -14,16 +17,16 @@ const defaultExercises: IExerciseMultipleChoice = {
             }))
 }
 
-type IMultipleChoice = {
+type IMultipleChoiceExercises = {
     exercises: any
     errors: any
     touched: any
     setFieldValue: any
 }
 
-const MultipleChoice = ({ exercises, setFieldValue, errors, touched }: IMultipleChoice) => {
+const MultipleChoiceExercises = ({ exercises, setFieldValue, errors, touched }: IMultipleChoiceExercises) => {
     const handleAddExercise = () => {
-        const newExercises: IExerciseMultipleChoice[] = [...exercises];
+        const newExercises: IMultipleChoiceItem[] = [...exercises];
         newExercises.push(defaultExercises)
         setFieldValue('exercises', newExercises)
     }
@@ -38,8 +41,8 @@ const MultipleChoice = ({ exercises, setFieldValue, errors, touched }: IMultiple
     return (
         <>
             {
-                exercises.map((exercise: IExerciseMultipleChoice, exerciseIndex: number) => (
-                    <MultipleChoiceExercise
+                exercises.map((exercise: IMultipleChoiceItem, exerciseIndex: number) => (
+                    <SingleChoice
                         key={exerciseIndex}
                         exercise={exercise}
                         exerciseIndex={exerciseIndex}
@@ -48,13 +51,11 @@ const MultipleChoice = ({ exercises, setFieldValue, errors, touched }: IMultiple
                         touched={touched?.[exerciseIndex]} />
                 ))
             }
-
             <CommonButton
                 label="Add Exercise"
                 onClick={handleAddExercise}
             />
-
         </>
     )
 }
-export default MultipleChoice
+export default MultipleChoiceExercises

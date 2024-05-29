@@ -1,3 +1,4 @@
+import { MULTIPLE_CHOICE } from "@/app/[language]/(modules)/training-exercise/_const";
 import CommonInput from "@/components/input/CommonInput";
 import InputText from "@/components/input/InputText";
 export type IAnswer = {
@@ -10,6 +11,7 @@ export type IMultipleChoiceAnswer = {
     answerIndex: number
     errors: any
     touched: any
+    exerciseType: string
     onChange: (value: string | boolean, answerIndex: number, keyName: string) => void
 }
 const MultipleChoiceAnswer = ({
@@ -18,6 +20,7 @@ const MultipleChoiceAnswer = ({
     errors,
     touched,
     onChange,
+    exerciseType
 }: IMultipleChoiceAnswer) => {
     const { code, value, isCorrect } = answer
     return (
@@ -37,6 +40,7 @@ const MultipleChoiceAnswer = ({
                 }
             ></InputText>
             <CommonInput
+                type={exerciseType === MULTIPLE_CHOICE ? 'checkbox' : 'radio'}
                 checked={isCorrect}
                 onClick={() => onChange(!isCorrect, answerIndex, 'isCorrect')}
             />

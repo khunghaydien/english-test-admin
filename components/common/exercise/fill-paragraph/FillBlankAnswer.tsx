@@ -2,11 +2,11 @@ import InputText from "@/components/input/InputText";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
 import React from "react";
-type IFillBlankAnswer = {
+type IContentRender = {
     content: string;
     initialAnswers: string[];
 };
-const FillBlankAnswer = ({ content, initialAnswers }: IFillBlankAnswer) => {
+const ContentRender = ({ content, initialAnswers }: IContentRender) => {
     const contents = content.split("....");
     const [tmpAnswers, setTmpAnswers] = useState(initialAnswers);
     const onChange = (value: string, index: number) => {
@@ -14,7 +14,6 @@ const FillBlankAnswer = ({ content, initialAnswers }: IFillBlankAnswer) => {
         newAnswers[index] = value;
         setTmpAnswers(newAnswers);
     };
-
     return (
         <div className="flex items-center gap-1 flex-wrap">
             {contents.map((content, index) => (
@@ -39,4 +38,4 @@ const FillBlankAnswer = ({ content, initialAnswers }: IFillBlankAnswer) => {
         </div>
     );
 };
-export default FillBlankAnswer;
+export default ContentRender;

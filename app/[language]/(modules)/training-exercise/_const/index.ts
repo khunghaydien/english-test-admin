@@ -45,6 +45,7 @@ export const optionsTrainingType = [
 
 export const MULTIPLE_CHOICE = '1';
 export const FILL_BLANK = '2';
+export const SINGLE_CHOICE = '3';
 
 export const exerciseTypeOption = [
     {

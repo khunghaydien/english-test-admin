@@ -49,7 +49,6 @@ const withModal = (animationSettings: {
         onComplete: onClose,
       });
     };
-
     return (
       <dialog
         className={`modal fixed z-50 flex bg-black justify-center items-center w-full h-full md:inset-0 ${opacity}`}
