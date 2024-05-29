@@ -46,7 +46,7 @@ const TrainingExerciseDetail = () => {
       exercises: [],
     },
     validationSchema: trainingExerciseDetailValidate,
-    onSubmit: (values) => {},
+    onSubmit: (values) => { },
   });
   const { values, setFieldValue, errors, touched } = formik;
   const onChangeValue = useCallback((value: string, keyName: string) => {
@@ -55,7 +55,7 @@ const TrainingExerciseDetail = () => {
   return (
     <div className="training-exercise-detail">
       <form onSubmit={formik.handleSubmit}>
-        <div className="flex flex-col gap-[24px]">
+        <div className="flex flex-col gap-6">
           <GroupItem top={24} gap={24}>
             <InputText
               placeholder={t.LB_TRAINING_EXERCISE.toString()}

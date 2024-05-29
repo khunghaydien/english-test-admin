@@ -21,7 +21,7 @@ const MultipleChoiceAnswer = ({
 }: IMultipleChoiceAnswer) => {
     const { code, value, isCorrect } = answer
     return (
-        <div className="answer flex items-center gap-[24px] w-full">
+        <div className="answer flex items-center w-half box-border gap-6">
             <div>{code}</div>
             <InputText
                 value={value}

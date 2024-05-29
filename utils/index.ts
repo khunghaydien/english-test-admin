@@ -64,3 +64,14 @@ export const updateCodeFormatAlphabet = (list: any) => {
     }));
     return updatedList;
 };
+
+export const scrollToFirstErrorMessage = () => {
+    const firstErrorMessage = document.querySelector(
+        '.error-message-scroll'
+    ) as HTMLElement
+    if (firstErrorMessage) {
+        firstErrorMessage.scrollIntoView({
+            behavior: 'smooth',
+        })
+    }
+}

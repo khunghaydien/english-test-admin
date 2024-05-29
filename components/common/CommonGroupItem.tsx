@@ -10,13 +10,13 @@ type IGroupItem = {
 const GroupItem = ({ children, gap, top }: Partial<IGroupItem>) => {
   return (
     <div
-      className={clsx("group-item flex items-start w-full gap-[20px]", {
+      className={clsx("group-item flex items-start w-full gap-6", {
         [`gap-[${gap}px]`]: gap,
         [`mt-[${top}px]`]: top,
       })}
     >
       {React.Children.map(children, (child, index) => (
-        <div key={index} className="flex-2">
+        <div key={index} className="flex-1">
           {child}
         </div>
       ))}

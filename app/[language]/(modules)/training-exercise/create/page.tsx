@@ -1,15 +1,17 @@
 "use client";
 
 import { useFormik } from "formik";
-import trainingExerciseValidate from "../_validate";
 import InputText from "@/components/input/InputText";
 import { useMessages } from "next-intl";
-import { useCallback } from "react";
+import { useCallback, useState } from "react";
 import CommonSelect from "@/components/input/CommonSelect";
 import GroupItem from "@/components/common/CommonGroupItem";
 import { optionsTrainingType } from "../_const";
 import CommonButton from "@/components/button";
-import CreateExercise from "../_component/CreateExercise";
+import AddIcon from "@mui/icons-material/Add";
+import CommonTap from "@/components/tap/CommonTap";
+import ModalCreateExercise from "../_component/ModalCreateExercise";
+import trainingExerciseValidate from "../_validate";
 type IAnswer = {
   id: string;
   answer: string;
@@ -38,25 +40,37 @@ type IExercise = {
 
 const TrainingExerciseDetail = () => {
   const t = useMessages();
-  const { trainingExerciseDetailValidate } = trainingExerciseValidate();
+  const { createExerciseValidate } = trainingExerciseValidate();
+  const [showModalCreateExercise, setShowModalCreateExercise] = useState(false);
+  const handleCreateExercise = () => {
+    setShowModalCreateExercise(true);
+  };
+
+  const handleClose = () => {
+    setShowModalCreateExercise(false);
+  };
+
   const formik = useFormik({
     initialValues: {
       trainingExercise: "",
       trainingType: "",
       exercises: [],
     },
-    validationSchema: trainingExerciseDetailValidate,
+    validationSchema: createExerciseValidate,
     onSubmit: (values) => { },
   });
+
   const { values, setFieldValue, errors, touched } = formik;
   const onChangeValue = useCallback((value: string, keyName: string) => {
     setFieldValue(keyName, value);
   }, []);
 
+  const onSubmitExercise = (values: any) => {
+  }
   return (
     <div className="training-exercise-detail">
       <form onSubmit={formik.handleSubmit}>
-        <div className="flex flex-col gap-[24px]">
+        <div className="flex flex-col gap-6">
           <GroupItem top={24} gap={24}>
             <InputText
               placeholder={t.LB_TRAINING_EXERCISE.toString()}
@@ -80,7 +94,16 @@ const TrainingExerciseDetail = () => {
               required
             />
           </GroupItem>
-          <CreateExercise />
+          <div className="create-exercise">
+            <div className="flex items-center gap-6">
+              <CommonTap label={"List Exercise"} required />
+              <CommonButton
+                label="Create Exercise"
+                startIcon={<AddIcon />}
+                onClick={handleCreateExercise}
+              />
+            </div>
+          </div>
           <CommonButton
             type="submit"
             onClick={() => formik.handleSubmit}
@@ -88,6 +111,12 @@ const TrainingExerciseDetail = () => {
           />
         </div>
       </form>
+
+      {showModalCreateExercise && (
+        <ModalCreateExercise
+          onClose={handleClose}
+          onSubmit={onSubmitExercise} />
+      )}
     </div>
   );
 };

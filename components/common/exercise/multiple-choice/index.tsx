@@ -1,53 +1,60 @@
-import InputText from "@/components/input/InputText";
-import GroupItem from "../../CommonGroupItem";
-import MultipleChoiceAnswer, { IAnswer } from "./MultipleChoiceAnswer";
-export type IExerciseMultipleChoice = {
-    question: string,
-    answers: IAnswer[]
+import { updateCodeFormatAlphabet } from "@/utils"
+import MultipleChoiceExercise, { IExerciseMultipleChoice } from "./MultipleChoiceExercise"
+import { useCallback } from "react"
+import CommonButton from "@/components/button"
+
+const defaultExercises: IExerciseMultipleChoice = {
+    question: '',
+    answers: updateCodeFormatAlphabet(
+        Array(4)
+            .fill({
+                code: '',
+                value: '',
+                isCorrect: false
+            }))
 }
-type IMultipleChoiceExercise = {
-    exercise: IExerciseMultipleChoice,
-    exerciseIndex: number,
-    onChangeExercise: (value: string | boolean, keyName: string, exerciseIndex: number, answerIndex?: number,) => void
+
+type IMultipleChoice = {
+    exercises: any
     errors: any
     touched: any
+    setFieldValue: any
 }
-const MultipleChoiceExercise = ({ exercise,
-    exerciseIndex,
-    onChangeExercise,
-    errors,
-    touched }: IMultipleChoiceExercise) => {
-    const { question, answers } = exercise
+
+const MultipleChoice = ({ exercises, setFieldValue, errors, touched }: IMultipleChoice) => {
+    const handleAddExercise = () => {
+        const newExercises: IExerciseMultipleChoice[] = [...exercises];
+        newExercises.push(defaultExercises)
+        setFieldValue('exercises', newExercises)
+    }
+
+    const onChangeExercise = useCallback((value: string | boolean, keyName: string, exerciseIndex: number, answerIndex?: number) => {
+        if (!!answerIndex?.toString())
+            setFieldValue(`exercises.${exerciseIndex}.answers.${answerIndex}.${keyName}`, value);
+        else
+            setFieldValue(`exercises.${exerciseIndex}.${keyName}`, value);
+    }, [])
+
     return (
         <>
-            <GroupItem>
-                <InputText
-                    required
-                    placeholder={"Question"}
-                    label={"Question"}
-                    keyName="question"
-                    value={question}
-                    onChange={(value: string, keyName: string) => onChangeExercise(value, keyName, exerciseIndex)}
-                    error={
-                        !!errors?.question &&
-                        !!touched?.question
-                    }
-                    errorMessage={errors?.question}
-                />
-            </GroupItem>
-            {answers.map(
-                (answer: IAnswer, answerIndex: number) => (
-                    <MultipleChoiceAnswer
-                        touched={touched?.answers?.[answerIndex]}
-                        errors={errors?.answers?.[answerIndex]}
-                        key={answerIndex}
-                        answerIndex={answerIndex}
-                        answer={answer}
-                        onChange={(value: string | boolean, answerIndex: number, keyName: string) => onChangeExercise(value, keyName, exerciseIndex, answerIndex)}
-                    />
-                )
-            )}
+            {
+                exercises.map((exercise: IExerciseMultipleChoice, exerciseIndex: number) => (
+                    <MultipleChoiceExercise
+                        key={exerciseIndex}
+                        exercise={exercise}
+                        exerciseIndex={exerciseIndex}
+                        onChangeExercise={onChangeExercise}
+                        errors={errors?.[exerciseIndex]}
+                        touched={touched?.[exerciseIndex]} />
+                ))
+            }
+
+            <CommonButton
+                label="Add Exercise"
+                onClick={handleAddExercise}
+            />
+
         </>
     )
 }
-export default MultipleChoiceExercise
+export default MultipleChoice

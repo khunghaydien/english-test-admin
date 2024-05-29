@@ -3,6 +3,7 @@ import { useClickOutside } from "@/utils";
 import gsap from "gsap";
 import HeaderModal, { IHeaderModal } from "./Header";
 import FooterModal, { IFooterModal } from "./Footer";
+import clsx from "clsx";
 
 export type ICommonModal = {
   children: ReactNode;
@@ -19,10 +20,10 @@ const withModal = (animationSettings: {
   return ({
     children,
     title = "",
-    onClose = () => {},
+    onClose = () => { },
     isFooter = true,
     customFooter,
-    onSubmit = () => {},
+    onSubmit = () => { },
     labelButtonCancel = "Cancel",
     labelButtonSubmit = "Submit",
   }: Partial<ICommonModal>) => {
@@ -59,7 +60,11 @@ const withModal = (animationSettings: {
           ref={modalRef}
         >
           <HeaderModal title={title} onClose={handleClose} />
-          <div className="p-4 md:p-5 space-y-4">{children}</div>
+          <div className={clsx("p-4 md:p-5 space-y-4 overflow-y-scroll",
+            isFooter ?
+              'h-modal-footer min-h-modal-footer' :
+              'h-modal min-h-modal')}
+          >{children}</div>
           {isFooter && (
             <FooterModal
               onClose={handleClose}

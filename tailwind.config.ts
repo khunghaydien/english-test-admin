@@ -67,6 +67,17 @@ const config: Config = {
         default: defaultColor,
         success: successColor,
         error: errorColor,
+      },
+      height: {
+        'modal-footer': 'calc(100% - 146px)',
+        'modal': 'calc(100% - 64px)',
+      },
+      minHeight: {
+        'modal-footer': 'calc(100% - 146px)',
+        'modal': 'calc(100% - 64px)'
+      },
+      width: {
+        'half': 'calc(50% - 24px)',
       }
     },
   },

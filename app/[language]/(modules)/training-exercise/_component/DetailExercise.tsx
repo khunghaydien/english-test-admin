@@ -16,7 +16,7 @@ const DetailExercise = ({ }: IDetailExercise) => {
   };
   return (
     <div className="create-exercise">
-      <div className="flex items-center gap-[24px]">
+      <div className="flex items-center gap-6">
         <CommonTap label={"List Exercise"} required />
         <CommonButton
           label="Create Exercise"
