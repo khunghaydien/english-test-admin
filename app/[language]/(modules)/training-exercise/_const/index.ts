@@ -54,6 +54,11 @@ export const exerciseTypeOption = [
         value: MULTIPLE_CHOICE,
     },
     {
+        id: SINGLE_CHOICE,
+        label: "Single Choice",
+        value: SINGLE_CHOICE,
+    },
+    {
         id: FILL_BLANK,
         label: "Fill Blank",
         value: FILL_BLANK,

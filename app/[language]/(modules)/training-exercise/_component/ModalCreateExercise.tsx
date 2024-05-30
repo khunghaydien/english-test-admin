@@ -79,7 +79,7 @@ const ModalCreateExercise = ({ onClose, onSubmit }: IModalCreateExercise) => {
             />
           </GroupItem>
           <Exercise
-            type={values.exerciseType}
+            exerciseType={values.exerciseType}
             exercises={values.exercises}
             setFieldValue={setFieldValue}
             errors={errors.exercises}

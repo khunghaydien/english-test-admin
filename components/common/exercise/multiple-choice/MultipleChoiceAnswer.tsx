@@ -1,13 +1,16 @@
-import { MULTIPLE_CHOICE } from "@/app/[language]/(modules)/training-exercise/_const";
+import { MULTIPLE_CHOICE, SINGLE_CHOICE } from "@/app/[language]/(modules)/training-exercise/_const";
 import CommonInput from "@/components/input/CommonInput";
 import InputText from "@/components/input/InputText";
-export type IAnswer = {
+import { useCallback } from "react";
+
+export type IMultipleChoiceAnswerItem = {
     code: string,
     value: string,
     isCorrect: boolean
 }
+
 export type IMultipleChoiceAnswer = {
-    answer: IAnswer
+    answer: IMultipleChoiceAnswerItem
     answerIndex: number
     errors: any
     touched: any

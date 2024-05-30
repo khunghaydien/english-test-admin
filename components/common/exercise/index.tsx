@@ -1,18 +1,21 @@
-import { FILL_BLANK, MULTIPLE_CHOICE } from '@/app/[language]/(modules)/training-exercise/_const';
+import { FILL_BLANK, MULTIPLE_CHOICE, SINGLE_CHOICE } from '@/app/[language]/(modules)/training-exercise/_const';
 import React from 'react';
-import MultipleChoice from './multiple-choice';
-import SingleChoice from './single-choice';
+import MultipleChoiceExercise from './multiple-choice/MultipleChoiceExercise';
+import SingleChoiceExercise from './multiple-choice/SingleChoiceExercise';
 type IExercise = {
-    type: string;
+    exerciseType: string;
     exercises: any;
     errors: any;
     touched: any;
     setFieldValue: any;
 };
-const Exercise = ({ type, exercises, errors, touched, setFieldValue }: IExercise) => {
-    switch (type) {
+const Exercise = ({ exerciseType, exercises, errors, touched, setFieldValue }: IExercise) => {
+    switch (exerciseType) {
         case MULTIPLE_CHOICE: return (
-            <MultipleChoice exercises={exercises} errors={errors} touched={touched} setFieldValue={setFieldValue} />
+            <MultipleChoiceExercise exercises={exercises} errors={errors} touched={touched} setFieldValue={setFieldValue} />
+        );
+        case SINGLE_CHOICE: return (
+            <SingleChoiceExercise exercises={exercises} errors={errors} touched={touched} setFieldValue={setFieldValue} />
         );
         case FILL_BLANK: return (
             <div>lll</div>

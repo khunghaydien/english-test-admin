@@ -1,8 +1,7 @@
 import { SINGLE_CHOICE } from "@/app/[language]/(modules)/training-exercise/_const";
-import withChoiceExercise from "./WrappedChoiceExercise";
+import withMultipleChoiceExerciseList from "./WrappedMultipleChoiceExerciseList";
 
 const SingleChoiceExercise = {
     exerciseType: SINGLE_CHOICE
 }
-
-export default withChoiceExercise(SingleChoiceExercise)
+export default withMultipleChoiceExerciseList(SingleChoiceExercise)
