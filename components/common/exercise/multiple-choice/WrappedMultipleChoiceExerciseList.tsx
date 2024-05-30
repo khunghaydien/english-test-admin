@@ -68,7 +68,7 @@ const withMultipleChoiceExerciseList = ({ exerciseType }: { exerciseType: string
                 exerciseIndex: number,
             ) => {
                 setFieldValue(`exercises.${exerciseIndex}.${keyName}`, value);
-            }, []
+            }, [exerciseType, exercises, setFieldValue]
         );
 
         const onChangeExerciseAnswer = (value: string | boolean,
@@ -112,7 +112,7 @@ const withMultipleChoiceExerciseList = ({ exerciseType }: { exerciseType: string
                 answerIndex: number
             ) => {
                 setFieldValue(`exercises.${exerciseIndex}.answers.${answerIndex}.${keyName}`, value);
-            }, []
+            }, [exerciseType, exercises, setFieldValue]
         );
 
         return (

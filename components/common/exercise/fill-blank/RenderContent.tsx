@@ -2,11 +2,11 @@ import InputText from "@/components/input/InputText";
 import clsx from "clsx";
 import { Fragment, useState } from "react";
 import React from "react";
-type IContentRender = {
+type IRenderContent = {
     content: string;
     initialAnswers: string[];
 };
-const ContentRender = ({ content, initialAnswers }: IContentRender) => {
+const RenderContent = ({ content, initialAnswers }: IRenderContent) => {
     const contents = content.split("....");
     const [tmpAnswers, setTmpAnswers] = useState(initialAnswers);
     const onChange = (value: string, index: number) => {
@@ -38,4 +38,4 @@ const ContentRender = ({ content, initialAnswers }: IContentRender) => {
         </div>
     );
 };
-export default ContentRender;
+export default RenderContent;
