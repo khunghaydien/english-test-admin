@@ -2,6 +2,7 @@ import { FILL_BLANK, MULTIPLE_CHOICE, SINGLE_CHOICE } from '@/app/[language]/(mo
 import React from 'react';
 import MultipleChoiceExercise from './multiple-choice/MultipleChoiceExercise';
 import SingleChoiceExercise from './multiple-choice/SingleChoiceExercise';
+import Tooltip from '@/components/tooltip';
 type IExercise = {
     exerciseType: string;
     exercises: any;
@@ -18,7 +19,10 @@ const Exercise = ({ exerciseType, exercises, errors, touched, setFieldValue }: I
             <SingleChoiceExercise exercises={exercises} errors={errors} touched={touched} setFieldValue={setFieldValue} />
         );
         case FILL_BLANK: return (
-            <div>lll</div>
+            <Tooltip content={'undefined'}>
+                <div>lll</div>
+            </Tooltip>
+
         )
     }
 };
