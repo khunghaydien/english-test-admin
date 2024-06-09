@@ -1,4 +1,4 @@
-import { ReactNode, useEffect, useRef, useState } from "react";
+import { ReactNode, forwardRef, useEffect, useImperativeHandle, useRef, useState } from "react";
 import { useClickOutside } from "@/utils";
 import gsap from "gsap";
 import HeaderModal, { IHeaderModal } from "./Header";
@@ -10,14 +10,16 @@ export type ICommonModal = {
   isFooter: boolean;
 } & IFooterModal &
   IHeaderModal;
-
+export type IForwardRefModal = {
+  onCloseModal: () => void
+}
 const withModal = (animationSettings: {
   from: any;
   to: any;
   close: any;
   containerClass: any;
 }) => {
-  return ({
+  return forwardRef<IForwardRefModal, Partial<ICommonModal>>(({
     children,
     title = "",
     onClose = () => { },
@@ -26,7 +28,7 @@ const withModal = (animationSettings: {
     onSubmit = () => { },
     labelButtonCancel = "Cancel",
     labelButtonSubmit = "Submit",
-  }: Partial<ICommonModal>) => {
+  }, ref) => {
     const modalRef = useRef(null);
     const [opacity, setOpacity] = useState("bg-opacity-50");
 
@@ -49,6 +51,11 @@ const withModal = (animationSettings: {
         onComplete: onClose,
       });
     };
+
+    useImperativeHandle(ref, () => ({
+      onCloseModal: handleClose
+    }))
+    
     return (
       <dialog
         className={`modal fixed z-50 flex bg-black justify-center items-center w-full h-full md:inset-0 ${opacity}`}
@@ -76,7 +83,7 @@ const withModal = (animationSettings: {
         </div>
       </dialog>
     );
-  };
+  });
 };
 
 export default withModal;

@@ -1,5 +1,5 @@
 import { useFormik } from "formik";
-import { useCallback } from "react";
+import { useCallback, useRef } from "react";
 import trainingExerciseValidate from "../_validate";
 import GroupItem from "@/components/common/CommonGroupItem";
 import InputText from "@/components/input/InputText";
@@ -8,6 +8,7 @@ import { exerciseTypeOption } from "../_const";
 import Exercise from "@/components/common/exercise";
 import FullModal from "@/components/modal/FullModal";
 import { scrollToFirstErrorMessage } from "@/utils";
+import { IForwardRefModal } from "@/components/modal/WrappedModal";
 type IModalCreateExercise = {
   onClose: () => void
   onSubmit: (values: IInitialvalue) => void
@@ -25,6 +26,7 @@ const initialValues: IInitialvalue = {
 }
 
 const ModalCreateExercise = ({ onClose, onSubmit }: IModalCreateExercise) => {
+  const modalCreateExerciseRef = useRef<IForwardRefModal>(null)
   const { exerciseValidate } = trainingExerciseValidate();
   const formik = useFormik({
     initialValues,
@@ -33,7 +35,9 @@ const ModalCreateExercise = ({ onClose, onSubmit }: IModalCreateExercise) => {
       setTimeout(() => {
         scrollToFirstErrorMessage()
       })
-      onClose()
+      if (modalCreateExerciseRef.current) {
+        !!modalCreateExerciseRef.current.onCloseModal && modalCreateExerciseRef.current.onCloseModal()
+      }
       onSubmit(values)
     },
   });
@@ -46,6 +50,7 @@ const ModalCreateExercise = ({ onClose, onSubmit }: IModalCreateExercise) => {
 
   return (
     <FullModal
+      ref={modalCreateExerciseRef}
       title="Create Exercise"
       onClose={onClose}
       onSubmit={formik.handleSubmit}
